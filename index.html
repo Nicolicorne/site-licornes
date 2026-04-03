@@ -8,7 +8,6 @@
             background: linear-gradient(pink, lightpink);
             margin: 0;
             font-family: 'UnifrakturCook', cursive;
-            position: relative;
         }
 
         h2 {
@@ -22,32 +21,40 @@
         .container {
             position: relative;
             margin-top: 50px;
+            display: flex; /* Utilisation de flex pour aligner les colonnes au même niveau */
+            justify-content: center;
+            align-items: flex-start;
         }
 
+        /* Les colonnes ne sont plus en fixed pour rester alignées au contenu */
         .colonne-gauche, .colonne-droite {
-            position: fixed;
-            top: 0;
             width: 120px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            flex-shrink: 0;
         }
 
-        .colonne-gauche { left: 0; }
-        .colonne-droite { right: 0; }
+        /* On ajuste l'image de la licorne pour qu'elle touche la colonne sans espace */
+        .colonne-gauche img:first-child, 
+        .colonne-droite img:first-child {
+            margin-bottom: -5px; 
+            z-index: 2;
+        }
 
         .colonne-gauche img, .colonne-droite img {
-            margin-bottom: 10px;
             width: 100%;
             height: auto;
         }
 
         .centre {
-            margin: 0 140px;
+            flex: 1;
+            max-width: 800px;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
+            margin: 0 20px;
         }
 
         .liens-gauche, .liens-droite {
@@ -55,6 +62,7 @@
             flex-direction: column;
             justify-content: center;
             margin: 10px;
+            flex: 1;
         }
 
         .liens-gauche { text-align: right; }
@@ -89,40 +97,41 @@
             text-decoration: underline;
         }
 
+        /* Version smartphone et tablettes moyennes */
         @media screen and (max-width: 900px) {
             .colonne-gauche, .colonne-droite { width: 80px; }
-            .centre { margin: 0 90px; }
             h2 { font-size: 40px; }
         }
 
-        /* Version smartphone */
         @media screen and (max-width: 600px) {
-            .colonne-gauche, .colonne-droite { width: 60px; }
-            .centre { margin: 0 65px; flex-direction: column; align-items: center; }
-            h2 { font-size: 32px; }
-            .photo-centre img { width: 85vw; }
+            .container {
+                flex-direction: column; /* On empile sur mobile */
+                align-items: center;
+            }
 
-            /* Déplacer les liens autour de l'image */
-            .liens-gauche { order: -1; text-align: center; margin-bottom: 20px; }
-            .liens-droite { order: 1; text-align: center; margin-top: 20px; }
+            /* Conteneur pour garder les deux colonnes au même niveau en haut sur mobile */
+            .mobile-header-columns {
+                display: flex;
+                justify-content: space-around;
+                width: 100%;
+                margin-bottom: 20px;
+            }
 
-            /* Colonnes plus fines sur mobile */
             .colonne-gauche, .colonne-droite {
-                position: fixed;
-                top: 0;
-                flex-direction: column;
-                justify-content: flex-start;
-                height: 100%;
+                width: 70px;
             }
 
-            .colonne-gauche img:first-child, .colonne-droite img:first-child {
-                /* images du haut passent à côté de la photo centrale */
-                position: relative;
-                top: auto;
-                max-width: 40px;
-                max-height: 40px;
-                margin: 10px;
+            .centre {
+                flex-direction: column;
+                margin: 0;
             }
+
+            .liens-gauche, .liens-droite {
+                text-align: center;
+                order: initial;
+            }
+
+            h2 { font-size: 32px; }
         }
     </style>
 </head>
@@ -135,11 +144,6 @@
 
         <div class="colonne-gauche">
             <img src="licornegauche.png">
-            <img src="colonne.png">
-        </div>
-
-        <div class="colonne-droite">
-            <img src="licornedroite.png">
             <img src="colonne.png">
         </div>
 
@@ -160,6 +164,11 @@
                 <a href="page4.html">Les preuves réductionnistes de l'existence des licornes</a>
             </div>
 
+        </div>
+
+        <div class="colonne-droite">
+            <img src="licornedroite.png">
+            <img src="colonne.png">
         </div>
 
     </div>
