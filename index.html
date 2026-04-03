@@ -16,19 +16,18 @@
             margin-top: 50px;
             font-size: 50px;
             color: darkred;
+            padding: 0 10px;
         }
 
         .container {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            margin-top: 50px;
             position: relative;
+            margin-top: 50px;
         }
 
         .colonne-gauche, .colonne-droite {
-            position: absolute;
+            position: fixed;
             top: 0;
+            width: 120px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -37,31 +36,40 @@
         .colonne-gauche { left: 0; }
         .colonne-droite { right: 0; }
 
+        .colonne-gauche img, .colonne-droite img {
+            margin-bottom: 10px;
+            width: 100%;
+            height: auto;
+        }
+
         .centre {
+            margin: 0 140px;
             display: flex;
-            flex-direction: row;
+            justify-content: center;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .liens-gauche, .liens-droite {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            height: 300px;
+            margin: 10px;
         }
 
-        .liens-gauche { margin-right: 20px; text-align: right; }
-        .liens-droite { margin-left: 20px; text-align: left; }
+        .liens-gauche { text-align: right; }
+        .liens-droite { text-align: left; }
 
         .photo-centre {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 0 20px;
+            margin: 10px;
         }
 
         .photo-centre img {
             width: 300px;
+            max-width: 90vw;
             box-shadow: 0px 0px 20px black;
             border: 3px solid black;
             margin-bottom: 10px;
@@ -72,7 +80,8 @@
             color: blue;
             text-decoration: none;
             font-weight: bold;
-            font-size: 18px; /* liens un peu plus grands */
+            word-break: break-word;
+            font-size: clamp(16px, 2vw, 22px);
         }
 
         .liens-gauche a:hover, .liens-droite a:hover, .photo-centre a:hover {
@@ -80,41 +89,24 @@
             text-decoration: underline;
         }
 
-        .colonne-gauche img, .colonne-droite img {
-            margin-bottom: 10px;
+        @media screen and (max-width: 900px) {
+            .colonne-gauche, .colonne-droite { width: 80px; }
+            .centre { margin: 0 90px; }
+            h2 { font-size: 40px; }
         }
 
-        /* Version mobile */
+        /* Version smartphone */
         @media screen and (max-width: 600px) {
-            .container {
-                flex-direction: column;
-                align-items: center;
-                margin-top: 30px;
-            }
-
-            .centre {
-                flex-direction: column;
-                align-items: center;
-            }
+            .colonne-gauche, .colonne-droite { width: 60px; }
+            .centre { margin: 0 65px; flex-direction: column; align-items: center; }
+            h2 { font-size: 32px; }
+            .photo-centre img { width: 85vw; }
 
             /* Déplacer les liens autour de l'image */
-            .liens-gauche, .liens-droite {
-                flex-direction: column;
-                height: auto;
-                margin: 10px 0;
-                text-align: center;
-            }
+            .liens-gauche { order: -1; text-align: center; margin-bottom: 20px; }
+            .liens-droite { order: 1; text-align: center; margin-top: 20px; }
 
-            /* Liens au-dessus de l'image */
-            .liens-gauche {
-                order: -1; /* avant l'image */
-            }
-
-            /* Liens en-dessous de l'image */
-            .liens-droite {
-                order: 1; /* après l'image */
-            }
-
+            /* Colonnes plus petites sur mobile */
             .colonne-gauche, .colonne-droite {
                 position: relative;
                 flex-direction: row;
@@ -122,11 +114,7 @@
                 margin: 10px 0;
             }
 
-            .colonne-gauche img,
-            .colonne-droite img {
-                max-height: 100px;
-                margin: 0 10px;
-            }
+            .colonne-gauche img, .colonne-droite img { max-height: 80px; margin: 0 5px; }
         }
     </style>
 </head>
@@ -137,33 +125,28 @@
 
     <div class="container">
 
-        <!-- Colonnes sur les bords -->
         <div class="colonne-gauche">
-            <img src="licornegauche.png" style="height: 150px;">
-            <img src="colonne.png" style="height: 750px;">
+            <img src="licornegauche.png">
+            <img src="colonne.png">
         </div>
 
         <div class="colonne-droite">
-            <img src="licornedroite.png" style="height: 150px;">
-            <img src="colonne.png" style="height: 750px;">
+            <img src="licornedroite.png">
+            <img src="colonne.png">
         </div>
 
-        <!-- Zone centrale avec liens et photo -->
         <div class="centre">
 
-            <!-- Liens gauche (au-dessus sur mobile) -->
             <div class="liens-gauche">
                 <a href="page1.html">Les preuves historiques de l'existence des licornes</a>
                 <a href="page2.html">La preuve ontologique de l'existence des licornes</a>
             </div>
 
-            <!-- Image centrale -->
             <div class="photo-centre">
                 <img src="photo.jpg">
                 <a href="page5.html">Ne pas savoir que les licornes existent, est-ce grave ?</a>
             </div>
 
-            <!-- Liens droite (en-dessous sur mobile) -->
             <div class="liens-droite">
                 <a href="page3.html">Les preuves scientifiques de l'existence des licornes</a>
                 <a href="page4.html">Les preuves réductionnistes de l'existence des licornes</a>
