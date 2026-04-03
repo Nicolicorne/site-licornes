@@ -1,79 +1,380 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Les preuves historiques de l'existence des licornes</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Cinzel+Decorative:wght@400;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #ffc0cb; /* fond rose */
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
-            font-family: 'Roboto Slab', serif; /* police élégante, lisible */
-            line-height: 1.7;
-            color: #4b2e2e;
-            padding: 40px;
+            padding: 0;
+        }
+
+        body {
+            background: #0a0010;
+            font-family: 'IM Fell English', serif;
+            color: #e8d5b0;
+            line-height: 1.9;
+            overflow-x: hidden;
+        }
+
+        /* ── Fond nébuleuse ── */
+        .bg-nebula {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 40% at 20% 30%, #2a003e88, transparent),
+                radial-gradient(ellipse 50% 60% at 80% 70%, #003a1a88, transparent),
+                radial-gradient(ellipse 80% 50% at 50% 50%, #1a001088, transparent),
+                #0a0010;
+            z-index: 0;
+        }
+
+        /* ── Étoiles ── */
+        .stars-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+            animation: twinkle var(--dur, 3s) var(--delay, 0s) infinite alternate ease-in-out;
+        }
+
+        @keyframes twinkle {
+            from { opacity: 0.1; transform: scale(0.8); }
+            to   { opacity: 0.9; transform: scale(1.4); }
+        }
+
+        /* ── Bordure parchemin ── */
+        .parchemin-bord {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 10;
+            border: 14px solid transparent;
+            border-image: repeating-linear-gradient(
+                45deg,
+                #8b6914 0px, #f5d97e 8px, #c89a2a 12px, #8b6914 16px
+            ) 14;
+        }
+
+        /* ── Contenu ── */
+        .page {
+            position: relative;
+            z-index: 2;
+            max-width: 840px;
+            margin: 0 auto;
+            padding: 60px 40px 80px;
+        }
+
+        /* ── En-tête ── */
+        .titre-bloc {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .sur-titre {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 11px;
+            letter-spacing: 6px;
+            color: #c89a2a;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            opacity: 0.9;
         }
 
         h1 {
-            text-align: center;
-            font-size: 40px;
-            margin-bottom: 30px;
-            color: #800000;
+            font-family: 'UnifrakturCook', cursive;
+            font-size: clamp(24px, 4.5vw, 48px);
+            color: #f5d97e;
+            text-shadow: 0 0 20px #c89a2a, 0 0 60px #7a4f0066;
+            line-height: 1.25;
+            margin-bottom: 20px;
         }
 
-        p {
-            margin-bottom: 20px;
+        .couronne {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            color: #c89a2a;
+            font-size: 14px;
+            letter-spacing: 4px;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        .couronne::before,
+        .couronne::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #c89a2a, transparent);
+            max-width: 140px;
+        }
+
+        /* ── Blocs de texte ── */
+        .bloc-texte {
+            position: relative;
+            margin-bottom: 38px;
+            padding: 28px 30px 24px;
+            background: rgba(180, 120, 20, 0.05);
+            border-left: 3px solid #c89a2a55;
+            border-bottom: 1px solid #c89a2a22;
+        }
+
+        .bloc-texte::before {
+            content: attr(data-num);
+            position: absolute;
+            top: -13px;
+            left: 20px;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 9px;
+            color: #c89a2a;
+            background: #0a0010;
+            padding: 2px 12px;
+            letter-spacing: 3px;
+            border: 1px solid #c89a2a44;
+        }
+
+        .bloc-texte p {
+            font-size: clamp(15px, 1.9vw, 19px);
+            line-height: 1.95;
+            text-align: justify;
+            color: #e8d5b0;
+        }
+
+        /* ── Lettrines ── */
+        .lettrine {
+            float: left;
+            font-family: 'UnifrakturCook', cursive;
+            font-size: 4.8em;
+            color: #f5d97e;
+            line-height: 0.72;
+            margin: 8px 10px 0 0;
+            text-shadow: 0 0 16px #c89a2a99;
+        }
+
+        /* ── Badge époque ── */
+        .epoque-badge {
+            display: inline-block;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 9px;
+            letter-spacing: 2px;
+            color: #f5d97e;
+            border: 1px solid #c89a2a77;
+            padding: 3px 12px;
+            margin-bottom: 14px;
+            background: rgba(180, 120, 20, 0.12);
+        }
+
+        /* ── Citation ── */
+        .citation {
+            margin: 40px 0;
+            padding: 24px 36px;
+            border-top: 2px solid #c89a2a55;
+            border-bottom: 2px solid #c89a2a55;
+            text-align: center;
+            font-style: italic;
+            font-size: clamp(16px, 2.2vw, 22px);
+            color: #f5d97e;
+            position: relative;
+            background: rgba(245, 217, 126, 0.04);
+            line-height: 1.6;
+        }
+
+        .citation::before {
+            content: '✦';
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0a0010;
+            padding: 0 12px;
+            color: #c89a2a;
+            font-size: 18px;
+        }
+
+        .citation::after {
+            content: '✦';
+            position: absolute;
+            bottom: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0a0010;
+            padding: 0 12px;
+            color: #c89a2a;
+            font-size: 18px;
+        }
+
+        /* ── Séparateur ── */
+        .separateur {
+            text-align: center;
+            color: #c89a2a;
+            letter-spacing: 8px;
+            opacity: 0.45;
+            margin: 10px 0 38px;
+            font-size: 13px;
+        }
+
+        /* ── Orient encart ── */
+        .encart-orient {
+            margin: 40px 0;
+            padding: 24px 28px;
+            border: 1px solid #c89a2a33;
+            background: rgba(0, 58, 26, 0.12);
+            position: relative;
+        }
+
+        .encart-orient::before {
+            content: 'Orient & Extrême-Orient';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 9px;
+            letter-spacing: 3px;
+            color: #9fe1cb;
+            background: #0a0010;
+            padding: 2px 16px;
+            white-space: nowrap;
+        }
+
+        .encart-orient p {
+            font-size: clamp(15px, 1.9vw, 19px);
+            line-height: 1.9;
+            color: #c8e8d0;
             text-align: justify;
         }
 
-        a {
-            color: blue;
-            text-decoration: underline;
-            font-weight: bold;
-        }
-
+        /* ── Lien retour ── */
         .retour {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 60px;
+        }
+
+        .retour a {
+            display: inline-block;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #c89a2a;
+            text-decoration: none;
+            padding: 14px 36px;
+            border: 1px solid #c89a2a55;
+            background: rgba(180, 120, 20, 0.06);
+            transition: all 0.35s;
+        }
+
+        .retour a:hover {
+            background: rgba(180, 120, 20, 0.22);
+            border-color: #f5d97e;
+            color: #f5d97e;
+            box-shadow: 0 0 24px #c89a2a44;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .page { padding: 50px 20px 60px; }
+            .bloc-texte { padding: 22px 18px 18px; }
+            .bloc-texte p { text-align: left; }
+            .encart-orient p { text-align: left; }
+            .citation { padding: 18px 20px; }
+            .parchemin-bord { border-width: 8px; }
         }
     </style>
 </head>
-
 <body>
 
-    <h1>Les preuves historiques de l'existence des licornes</h1>
+    <div class="bg-nebula"></div>
+    <div class="stars-layer" id="stars"></div>
+    <div class="parchemin-bord"></div>
 
-    <p>
-        L’histoire de la licorne est une fresque monumentale où la zoologie antique, la mystique religieuse et la quête de pureté s’entremêlent pour former l’un des mythes les plus persistants de l’humanité. Contrairement à d’autres créatures de légendes nées de la peur, comme le dragon ou l’hydre, la licorne a longtemps été considérée par les plus grands esprits comme un animal de chair et de sang, évoluant dans les contrées lointaines de l’Orient. Son voyage à travers les âges commence par une erreur d’observation pour finir en icône de l’imaginaire universel.
-    </p>
+    <div class="page">
 
-    <p>
-        Dans l’Antiquité, la licorne n’appartient pas au royaume du merveilleux mais à celui de l’histoire naturelle. Les Grecs, qui ne l’ont jamais intégrée à leur mythologie olympienne, en parlent avec le sérieux d’un naturaliste décrivant un éléphant. Ctésias de Cnide, médecin à la cour de Perse au Ve siècle avant notre ère, est le premier à consigner son existence. De retour d'Asie, il décrit des « ânes sauvages » d’une rapidité prodigieuse, au corps blanc et à la tête pourpre, arborant sur le front une corne unique de près d'un mètre de long. Pour lui, cette corne n'est pas un attribut magique, mais un outil médicinal : les rois de Perse buvaient dans des coupes façonnées dans cette matière pour se protéger des poisons et des convulsions. Cette approche pragmatique se retrouve chez Aristote ou Pline l’Ancien, qui classent le « monocéros » parmi les animaux solitaires et indomptables des confins de l'Inde.
-    </p>
+        <div class="titre-bloc">
+            <div class="sur-titre">Codex Unicornis — Tome Premier</div>
+            <h1>Les Preuves Historiques<br>de l'Existence des Licornes</h1>
+            <div class="couronne">✦ &nbsp; I &nbsp; ✦</div>
+        </div>
 
-    <p>
-        Cependant, c’est au Moyen Âge que la licorne subit une métamorphose symbolique radicale, passant du statut de bête sauvage à celui de figure sacrée. Cette transition s’opère par le biais du Physiologos, un texte fondamental du IIe siècle qui christianise le monde animal. La licorne y devient l’allégorie du Christ, et sa corne unique symbolise l’unité de Dieu et du Fils. C’est à cette époque que s’installe le célèbre récit de la chasse à la licorne. On raconte que cet animal, capable de terrasser des lions, ne peut être capturé que par la ruse de la pureté : une jeune vierge est placée en forêt ; la licorne, attirée par son innocence, vient poser sa tête sur ses genoux et s’endort. Ce tableau, mêlant érotisme subtil et piété, devient le thème de prédilection des tapissiers et des enlumineurs. La célèbre série de tapisseries de La Dame à la licorne, conservée au musée de Cluny, illustre cette fascination médiévale où l'animal devient le gardien des sens et de la vie intérieure.
-    </p>
+        <div class="bloc-texte" data-num="PROLOGUE">
+            <p><span class="lettrine">L</span>'histoire de la licorne est une fresque monumentale où la zoologie antique, la mystique religieuse et la quête de pureté s'entremêlent pour former l'un des mythes les plus persistants de l'humanité. Contrairement à d'autres créatures de légendes nées de la peur, comme le dragon ou l'hydre, la licorne a longtemps été considérée par les plus grands esprits comme un animal de chair et de sang, évoluant dans les contrées lointaines de l'Orient. Son voyage à travers les âges commence par une erreur d'observation pour finir en icône de l'imaginaire universel.</p>
+        </div>
 
-    <p>
-        Parallèlement à ce développement spirituel, la licorne alimente un commerce de luxe sans précédent en Europe. La croyance en les vertus prophylactiques de sa corne — l'alicorne — atteint son paroxysme entre le XIVe et le XVIe siècle. On prétend qu’elle peut purifier les eaux croupies d’un simple contact et détecter le moindre poison. Dans une époque marquée par les intrigues politiques et les empoisonnements à la cour, l'alicorne devient le trésor ultime. Les souverains, de Charles Quint à Élisabeth Ière, possèdent des cornes entières, souvent ornées d'or et de pierres précieuses. En réalité, ces objets provenaient du commerce maritime avec le Grand Nord : les Vikings, puis les marchands danois, vendaient à prix d'or les dents torsadées du narval, un cétacé arctique dont l'existence restait ignorée du reste du monde. Cette méprise permit à la licorne de rester une « réalité » économique et médicale jusqu'à l'aube du siècle des Lumières.
-    </p>
+        <div class="separateur">· · · ✦ · · ·</div>
 
-    <p>
-        En Orient, la licorne connaît des variantes tout aussi riches. En Chine, elle prend les traits du Qilin, une créature composite à corps de cerf et écailles de dragon. Mais à la différence de la licorne occidentale, le Qilin est une incarnation de la paix absolue : il marche sans écraser un seul brin d'herbe et ne se nourrit que de rosée. Son apparition annonce la naissance d'un grand sage ou le règne d'un empereur vertueux. Dans le monde musulman, on trouve le Karkadann, une bête féroce dont la corne change de couleur selon l'humeur. Ces versions témoignent de l'universalité du besoin humain de projeter, sur une créature unique et solitaire, des idéaux de force et de noblesse morale.
-    </p>
+        <div class="bloc-texte" data-num="ANTIQUITÉ — Ve siècle av. J.-C.">
+            <div class="epoque-badge">Ctésias de Cnide · Aristote · Pline l'Ancien</div>
+            <p><span class="lettrine">D</span>ans l'Antiquité, la licorne n'appartient pas au royaume du merveilleux mais à celui de l'histoire naturelle. Les Grecs, qui ne l'ont jamais intégrée à leur mythologie olympienne, en parlent avec le sérieux d'un naturaliste décrivant un éléphant. Ctésias de Cnide, médecin à la cour de Perse au Ve siècle avant notre ère, est le premier à consigner son existence. De retour d'Asie, il décrit des « ânes sauvages » d'une rapidité prodigieuse, au corps blanc et à la tête pourpre, arborant sur le front une corne unique de près d'un mètre de long. Pour lui, cette corne n'est pas un attribut magique, mais un outil médicinal : les rois de Perse buvaient dans des coupes façonnées dans cette matière pour se protéger des poisons et des convulsions. Cette approche pragmatique se retrouve chez Aristote ou Pline l'Ancien, qui classent le « monocéros » parmi les animaux solitaires et indomptables des confins de l'Inde.</p>
+        </div>
 
-    <p>
-        La fin du règne "physique" de la licorne survient avec les progrès de la navigation et de la science moderne. Au XVIIe siècle, des savants comme Caspar Bartholin et Ole Worm commencent à démontrer l'origine marine des cornes vendues en pharmacie. Les explorateurs parcourent le monde et ne trouvent nulle trace du quadrupède blanc. Pourtant, au lieu de disparaître, la licorne se réfugie dans la littérature et les blasons. En héraldique, elle représente la force contenue par la vertu, figurant par exemple sur les armoiries de l'Écosse, puis du Royaume-Uni, où elle est représentée enchaînée pour signifier que seule la justice peut dompter une telle puissance.
-    </p>
+        <div class="separateur">· · · ✦ · · ·</div>
 
-    <p>
-        Aujourd'hui, la licorne a quitté les manuels de médecine et les églises pour envahir la culture populaire. Elle est devenue le symbole de la rareté, de l'unicité et d'une forme de magie quotidienne. Du monde des start-ups (qui utilisent son nom pour désigner des entreprises d'exception) aux univers de la fantasy moderne, elle incarne notre nostalgie d'un monde où la nature gardait encore une part d'inconnu. Elle n'est plus l'animal que l'on chasse pour sa corne, mais l'esprit que l'on invoque pour s'évader du réel. À travers les millénaires, la licorne n’a cessé d’évoluer, prouvant que même sans exister physiquement, une idée peut influencer l’art, l’économie et la foi d’une civilisation entière. Sa véritable force ne réside pas dans sa corne, mais dans sa capacité à refléter, à chaque époque, les aspirations les plus nobles du cœur humain.
-    </p>
+        <div class="bloc-texte" data-num="MOYEN ÂGE — IIe au XVe siècle">
+            <div class="epoque-badge">Le Physiologos · La Dame à la Licorne</div>
+            <p><span class="lettrine">C</span>'est au Moyen Âge que la licorne subit une métamorphose symbolique radicale, passant du statut de bête sauvage à celui de figure sacrée. Cette transition s'opère par le biais du Physiologos, un texte fondamental du IIe siècle qui christianise le monde animal. La licorne y devient l'allégorie du Christ, et sa corne unique symbolise l'unité de Dieu et du Fils. C'est à cette époque que s'installe le célèbre récit de la chasse à la licorne : une jeune vierge est placée en forêt ; la licorne, attirée par son innocence, vient poser sa tête sur ses genoux et s'endort. La célèbre série de tapisseries de La Dame à la licorne, conservée au musée de Cluny, illustre cette fascination médiévale où l'animal devient le gardien des sens et de la vie intérieure.</p>
+        </div>
 
-    <div class="retour">
-        <a href="index.html">← Retour à l’accueil</a>
+        <div class="citation">
+            « La licorne ne peut être capturée que par la ruse de la pureté —<br>
+            une jeune vierge placée en forêt, et la bête vient poser sa tête sur ses genoux. »
+        </div>
+
+        <div class="bloc-texte" data-num="COMMERCE — XIVe au XVIe siècle">
+            <div class="epoque-badge">Charles Quint · Élisabeth Ière · Le Narval</div>
+            <p><span class="lettrine">P</span>arallèlement à ce développement spirituel, la licorne alimente un commerce de luxe sans précédent en Europe. La croyance en les vertus prophylactiques de sa corne — l'alicorne — atteint son paroxysme entre le XIVe et le XVIe siècle. On prétend qu'elle peut purifier les eaux croupies d'un simple contact et détecter le moindre poison. Dans une époque marquée par les intrigues politiques et les empoisonnements à la cour, l'alicorne devient le trésor ultime. En réalité, les Vikings, puis les marchands danois, vendaient à prix d'or les dents torsadées du narval, un cétacé arctique dont l'existence restait ignorée du reste du monde. Cette méprise permit à la licorne de rester une « réalité » économique et médicale jusqu'à l'aube du siècle des Lumières.</p>
+        </div>
+
+        <div class="separateur">· · · ✦ · · ·</div>
+
+        <div class="encart-orient">
+            <p><span class="lettrine" style="color:#9fe1cb; text-shadow: 0 0 16px #1D9E7599;">E</span>n Orient, la licorne connaît des variantes tout aussi riches. En Chine, elle prend les traits du <em>Qilin</em>, une créature composite à corps de cerf et écailles de dragon, incarnation de la paix absolue : il marche sans écraser un seul brin d'herbe et ne se nourrit que de rosée. Son apparition annonce la naissance d'un grand sage. Dans le monde musulman, on trouve le <em>Karkadann</em>, une bête féroce dont la corne change de couleur selon l'humeur. Ces versions témoignent de l'universalité du besoin humain de projeter, sur une créature unique et solitaire, des idéaux de force et de noblesse morale.</p>
+        </div>
+
+        <div class="separateur">· · · ✦ · · ·</div>
+
+        <div class="bloc-texte" data-num="DÉCLIN — XVIIe siècle">
+            <div class="epoque-badge">Caspar Bartholin · Ole Worm · L'Héraldique</div>
+            <p><span class="lettrine">L</span>a fin du règne physique de la licorne survient avec les progrès de la navigation et de la science moderne. Au XVIIe siècle, des savants comme Caspar Bartholin et Ole Worm commencent à démontrer l'origine marine des cornes vendues en pharmacie. Pourtant, au lieu de disparaître, la licorne se réfugie dans la littérature et les blasons. En héraldique, elle représente la force contenue par la vertu, figurant sur les armoiries de l'Écosse, puis du Royaume-Uni, où elle est représentée enchaînée pour signifier que seule la justice peut dompter une telle puissance.</p>
+        </div>
+
+        <div class="bloc-texte" data-num="AUJOURD'HUI">
+            <div class="epoque-badge">Culture populaire · Start-ups · Fantasy</div>
+            <p><span class="lettrine">A</span>ujourd'hui, la licorne a quitté les manuels de médecine et les églises pour envahir la culture populaire. Elle est devenue le symbole de la rareté, de l'unicité et d'une forme de magie quotidienne. Du monde des start-ups aux univers de la fantasy moderne, elle incarne notre nostalgie d'un monde où la nature gardait encore une part d'inconnu. À travers les millénaires, la licorne n'a cessé d'évoluer, prouvant que même sans exister physiquement, une idée peut influencer l'art, l'économie et la foi d'une civilisation entière. Sa véritable force ne réside pas dans sa corne, mais dans sa capacité à refléter, à chaque époque, les aspirations les plus nobles du cœur humain.</p>
+        </div>
+
+        <div class="retour">
+            <a href="index.html">← Retour à l'accueil</a>
+        </div>
+
     </div>
+
+    <script>
+        const starsEl = document.getElementById('stars');
+        for (let i = 0; i < 90; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            const size = Math.random() * 2.5 + 0.4;
+            s.style.cssText = [
+                `width:${size}px`,
+                `height:${size}px`,
+                `top:${Math.random() * 100}%`,
+                `left:${Math.random() * 100}%`,
+                `--dur:${(2 + Math.random() * 3).toFixed(1)}s`,
+                `--delay:${(Math.random() * 5).toFixed(1)}s`
+            ].join(';');
+            starsEl.appendChild(s);
+        }
+    </script>
 
 </body>
 </html>
