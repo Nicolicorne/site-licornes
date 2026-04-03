@@ -1,177 +1,350 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Mon site</title>
-    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Par-delà le mythe : les preuves de l'existence des licornes</title>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
     <style>
-        body {
-            background: linear-gradient(pink, lightpink);
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
-            font-family: 'UnifrakturCook', cursive;
+            padding: 0;
         }
 
-        h2 {
+        body {
+            background: #0d001a;
+            font-family: 'Crimson Text', serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, #3b006a 0%, #1a0030 45%, #0d001a 100%);
+            z-index: 0;
+        }
+
+        .stars-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+            animation: twinkle var(--dur, 3s) var(--delay, 0s) infinite alternate ease-in-out;
+        }
+
+        @keyframes twinkle {
+            from { opacity: 0.1; transform: scale(0.8); }
+            to   { opacity: 0.9; transform: scale(1.3); }
+        }
+
+        .page {
+            position: relative;
+            z-index: 2;
+            padding-bottom: 60px;
+        }
+
+        .titre-wrapper {
             text-align: center;
-            margin-top: 50px;
-            font-size: 50px;
-            color: darkred;
+            padding: 52px 20px 6px;
+        }
+
+        h1 {
+            font-family: 'UnifrakturCook', cursive;
+            font-size: clamp(24px, 4.5vw, 52px);
+            color: #f5d97e;
+            text-shadow: 0 0 16px #c89a2a, 0 0 40px #7a4f0099;
+            line-height: 1.25;
+            letter-spacing: 1px;
+        }
+
+        .ornement {
+            color: #c89a2a;
+            font-size: 20px;
+            letter-spacing: 10px;
+            margin: 10px 0 0;
+            opacity: 0.85;
+        }
+
+        /* ── Layout principal ── */
+        .layout {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            margin-top: 30px;
             padding: 0 10px;
         }
 
-        .container {
-            position: relative;
-            margin-top: 50px;
-            display: flex; /* Utilisation de flex pour aligner les colonnes au même niveau */
-            justify-content: center;
-            align-items: flex-start;
-        }
-
-        /* Les colonnes ne sont plus en fixed pour rester alignées au contenu */
-        .colonne-gauche, .colonne-droite {
-            width: 120px;
+        /* ── Colonnes ── */
+        .colonne {
+            width: 110px;
+            flex-shrink: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            flex-shrink: 0;
         }
 
-        /* On ajuste l'image de la licorne pour qu'elle touche la colonne sans espace */
-        .colonne-gauche img:first-child, 
-        .colonne-droite img:first-child {
-            margin-bottom: -5px; 
-            z-index: 2;
-        }
-
-        .colonne-gauche img, .colonne-droite img {
+        .colonne img {
             width: 100%;
             height: auto;
+            display: block;
         }
 
+        /* ── Zone centrale ── */
         .centre {
             flex: 1;
-            max-width: 800px;
+            max-width: 760px;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
-            margin: 0 20px;
+            gap: 16px;
+            padding: 0 16px;
         }
 
-        .liens-gauche, .liens-droite {
+        /* ── Colonnes de liens ── */
+        .liens-col {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            margin: 10px;
+            gap: 16px;
             flex: 1;
+            min-width: 150px;
+            max-width: 220px;
         }
 
-        .liens-gauche { text-align: right; }
-        .liens-droite { text-align: left; }
+        .liens-col.gauche { align-items: flex-end; }
+        .liens-col.droite { align-items: flex-start; }
 
+        .lien {
+            display: block;
+            color: #f5d97e;
+            text-decoration: none;
+            font-size: clamp(15px, 1.8vw, 20px);
+            font-style: italic;
+            line-height: 1.45;
+            padding: 10px 14px;
+            border: 1px solid #c89a2a44;
+            border-radius: 4px;
+            background: rgba(180, 120, 20, 0.07);
+            transition: background 0.3s, border-color 0.3s, text-shadow 0.3s, color 0.3s;
+            text-align: center;
+        }
+
+        .lien:hover {
+            background: rgba(200, 154, 42, 0.2);
+            border-color: #f5d97e;
+            color: #fff8dc;
+            text-shadow: 0 0 12px #f5d97eaa;
+        }
+
+        /* ── Photo centrale ── */
         .photo-centre {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 10px;
+            gap: 14px;
         }
 
-        .photo-centre img {
-            width: 300px;
-            max-width: 90vw;
-            box-shadow: 0px 0px 20px black;
-            border: 3px solid black;
-            margin-bottom: 10px;
+        .photo-frame {
+            position: relative;
+            width: clamp(160px, 26vw, 260px);
+            aspect-ratio: 1 / 1;
+            border: 2px solid #c89a2a;
+            border-radius: 3px;
+            overflow: hidden;
+            box-shadow: 0 0 30px #c89a2a55, inset 0 0 40px rgba(180,120,20,0.12);
+            background: linear-gradient(135deg, #2a003e, #150028);
         }
 
-        .liens-gauche a, .liens-droite a, .photo-centre a {
-            margin-bottom: 10px;
-            color: blue;
-            text-decoration: none;
-            font-weight: bold;
-            word-break: break-word;
-            font-size: clamp(16px, 2vw, 22px);
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
-        .liens-gauche a:hover, .liens-droite a:hover, .photo-centre a:hover {
-            color: darkblue;
-            text-decoration: underline;
+        .photo-frame::before,
+        .photo-frame::after,
+        .coin-br,
+        .coin-bl {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border-color: #f5d97e;
+            border-style: solid;
+            z-index: 3;
+        }
+        .photo-frame::before { top: 4px; left: 4px;   border-width: 2px 0 0 2px; }
+        .photo-frame::after  { top: 4px; right: 4px;  border-width: 2px 2px 0 0; }
+        .coin-br { bottom: 4px; right: 4px; border-width: 0 2px 2px 0; }
+        .coin-bl { bottom: 4px; left: 4px;  border-width: 0 0 2px 2px; }
+
+        .lien-photo {
+            font-size: clamp(14px, 1.6vw, 18px);
+            max-width: 260px;
+            text-align: center;
         }
 
-        /* Version smartphone et tablettes moyennes */
-        @media screen and (max-width: 900px) {
-            .colonne-gauche, .colonne-droite { width: 80px; }
-            h2 { font-size: 40px; }
+        .sep {
+            color: #c89a2a;
+            font-size: 16px;
+            letter-spacing: 6px;
+            opacity: 0.7;
         }
 
-        @media screen and (max-width: 600px) {
-            .container {
-                flex-direction: column; /* On empile sur mobile */
+        /* ── Tablettes ── */
+        @media (max-width: 900px) {
+            .colonne { width: 80px; }
+        }
+
+        /* ── Smartphone ── */
+        @media (max-width: 600px) {
+            .layout {
+                flex-direction: column;
                 align-items: center;
+                padding: 0;
             }
 
-            /* Conteneur pour garder les deux colonnes au même niveau en haut sur mobile */
-            .mobile-header-columns {
+            /* Les deux colonnes côte à côte en haut */
+            .colonnes-mobile {
                 display: flex;
-                justify-content: space-around;
+                justify-content: space-between;
                 width: 100%;
-                margin-bottom: 20px;
+                padding: 0 10px;
+                margin-bottom: 16px;
             }
 
-            .colonne-gauche, .colonne-droite {
+            .colonne {
                 width: 70px;
             }
 
             .centre {
                 flex-direction: column;
-                margin: 0;
+                align-items: center;
+                width: 100%;
+                padding: 0 16px;
+                gap: 14px;
             }
 
-            .liens-gauche, .liens-droite {
-                text-align: center;
-                order: initial;
+            .liens-col {
+                align-items: center;
+                max-width: 100%;
+                min-width: unset;
+                width: 100%;
             }
 
-            h2 { font-size: 32px; }
+            .lien {
+                width: 100%;
+            }
+
+            h1 { font-size: 28px; }
         }
     </style>
 </head>
-
 <body>
 
-    <h2>Par-delà le mythe : les preuves de l’existence des licornes</h2>
+    <div class="bg"></div>
+    <div class="stars-layer" id="stars"></div>
 
-    <div class="container">
+    <div class="page">
 
-        <div class="colonne-gauche">
-            <img src="licornegauche.png">
-            <img src="colonne.png">
+        <div class="titre-wrapper">
+            <h1>Par-delà le mythe&nbsp;: les preuves de l'existence des licornes</h1>
+            <div class="ornement">— ✦ —</div>
         </div>
 
-        <div class="centre">
+        <div class="layout" id="layout">
 
-            <div class="liens-gauche">
-                <a href="page1.html">Les preuves historiques de l'existence des licornes</a>
-                <a href="page2.html">La preuve ontologique de l'existence des licornes</a>
+            <div class="colonne" id="col-gauche">
+                <img src="licornegauche.png" alt="licorne gauche">
+                <img src="colonne.png" alt="colonne">
             </div>
 
-            <div class="photo-centre">
-                <img src="photo.jpg">
-                <a href="page5.html">Ne pas savoir que les licornes existent, est-ce grave ?</a>
+            <div class="centre">
+
+                <div class="liens-col gauche">
+                    <a href="page1.html" class="lien">Les preuves historiques de l'existence des licornes</a>
+                    <a href="page2.html" class="lien">La preuve ontologique de l'existence des licornes</a>
+                </div>
+
+                <div class="photo-centre">
+                    <div class="photo-frame">
+                        <img src="photo.jpg" alt="Illustration centrale">
+                        <div class="coin-br"></div>
+                        <div class="coin-bl"></div>
+                    </div>
+                    <div class="sep">· · ·</div>
+                    <a href="page5.html" class="lien lien-photo">Ne pas savoir que les licornes existent, est-ce grave&nbsp;?</a>
+                </div>
+
+                <div class="liens-col droite">
+                    <a href="page3.html" class="lien">Les preuves scientifiques de l'existence des licornes</a>
+                    <a href="page4.html" class="lien">Les preuves réductionnistes de l'existence des licornes</a>
+                </div>
+
             </div>
 
-            <div class="liens-droite">
-                <a href="page3.html">Les preuves scientifiques de l'existence des licornes</a>
-                <a href="page4.html">Les preuves réductionnistes de l'existence des licornes</a>
+            <div class="colonne" id="col-droite">
+                <img src="licornedroite.png" alt="licorne droite">
+                <img src="colonne.png" alt="colonne">
             </div>
 
         </div>
-
-        <div class="colonne-droite">
-            <img src="licornedroite.png">
-            <img src="colonne.png">
-        </div>
-
     </div>
+
+    <script>
+        /* Étoiles animées */
+        const starsEl = document.getElementById('stars');
+        for (let i = 0; i < 80; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            const size = Math.random() * 2.5 + 0.5;
+            s.style.cssText = [
+                `width:${size}px`,
+                `height:${size}px`,
+                `top:${Math.random() * 100}%`,
+                `left:${Math.random() * 100}%`,
+                `--dur:${(2 + Math.random() * 3).toFixed(1)}s`,
+                `--delay:${(Math.random() * 4).toFixed(1)}s`
+            ].join(';');
+            starsEl.appendChild(s);
+        }
+
+        /* Reorganisation sur smartphone */
+        function reorganise() {
+            const layout    = document.getElementById('layout');
+            const colG      = document.getElementById('col-gauche');
+            const colD      = document.getElementById('col-droite');
+            let   mobileTop = document.querySelector('.colonnes-mobile');
+
+            if (window.innerWidth <= 600) {
+                if (!mobileTop) {
+                    mobileTop = document.createElement('div');
+                    mobileTop.className = 'colonnes-mobile';
+                    mobileTop.appendChild(colG);
+                    mobileTop.appendChild(colD);
+                    layout.insertBefore(mobileTop, layout.firstChild);
+                }
+            } else {
+                if (mobileTop) {
+                    layout.insertBefore(colG, layout.firstChild);
+                    layout.appendChild(colD);
+                    mobileTop.remove();
+                }
+            }
+        }
+
+        reorganise();
+        window.addEventListener('resize', reorganise);
+    </script>
 
 </body>
 </html>
