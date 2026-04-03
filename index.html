@@ -72,7 +72,7 @@
             color: blue;
             text-decoration: none;
             font-weight: bold;
-            font-size: 18px; /* un peu plus grand pour lisibilité */
+            font-size: 18px; /* liens un peu plus grands */
         }
 
         .liens-gauche a:hover, .liens-droite a:hover, .photo-centre a:hover {
@@ -84,15 +84,11 @@
             margin-bottom: 10px;
         }
 
-        /* Ajustements pour petits écrans (smartphone) */
+        /* Version mobile */
         @media screen and (max-width: 600px) {
-            .colonne-gauche img,
-            .colonne-droite img {
-                height: auto;
-                max-height: 120px;   /* limite la hauteur pour mobile */
-            }
-
             .container {
+                flex-direction: column;
+                align-items: center;
                 margin-top: 30px;
             }
 
@@ -101,10 +97,35 @@
                 align-items: center;
             }
 
-            .liens-gauche,
-            .liens-droite {
+            /* Déplacer les liens autour de l'image */
+            .liens-gauche, .liens-droite {
+                flex-direction: column;
                 height: auto;
                 margin: 10px 0;
+                text-align: center;
+            }
+
+            /* Liens au-dessus de l'image */
+            .liens-gauche {
+                order: -1; /* avant l'image */
+            }
+
+            /* Liens en-dessous de l'image */
+            .liens-droite {
+                order: 1; /* après l'image */
+            }
+
+            .colonne-gauche, .colonne-droite {
+                position: relative;
+                flex-direction: row;
+                justify-content: center;
+                margin: 10px 0;
+            }
+
+            .colonne-gauche img,
+            .colonne-droite img {
+                max-height: 100px;
+                margin: 0 10px;
             }
         }
     </style>
@@ -130,7 +151,7 @@
         <!-- Zone centrale avec liens et photo -->
         <div class="centre">
 
-            <!-- Liens gauche -->
+            <!-- Liens gauche (au-dessus sur mobile) -->
             <div class="liens-gauche">
                 <a href="page1.html">Les preuves historiques de l'existence des licornes</a>
                 <a href="page2.html">La preuve ontologique de l'existence des licornes</a>
@@ -142,7 +163,7 @@
                 <a href="page5.html">Ne pas savoir que les licornes existent, est-ce grave ?</a>
             </div>
 
-            <!-- Liens droite -->
+            <!-- Liens droite (en-dessous sur mobile) -->
             <div class="liens-droite">
                 <a href="page3.html">Les preuves scientifiques de l'existence des licornes</a>
                 <a href="page4.html">Les preuves réductionnistes de l'existence des licornes</a>
