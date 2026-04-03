@@ -81,7 +81,7 @@
             text-decoration: none;
             font-weight: bold;
             word-break: break-word;
-            font-size: clamp(16px, 2vw, 22px); /* taille responsive */
+            font-size: clamp(16px, 2vw, 22px);
         }
 
         .liens-gauche a:hover, .liens-droite a:hover, .photo-centre a:hover {
@@ -90,46 +90,38 @@
         }
 
         @media screen and (max-width: 900px) {
-            .colonne-gauche, .colonne-droite {
-                width: 80px;
-            }
-
-            .centre {
-                margin: 0 90px;
-            }
-
-            h2 {
-                font-size: 40px;
-            }
+            .colonne-gauche, .colonne-droite { width: 80px; }
+            .centre { margin: 0 90px; }
+            h2 { font-size: 40px; }
         }
 
+        /* Version smartphone */
         @media screen and (max-width: 600px) {
+            .colonne-gauche, .colonne-droite { width: 60px; }
+            .centre { margin: 0 65px; flex-direction: column; align-items: center; }
+            h2 { font-size: 32px; }
+            .photo-centre img { width: 85vw; }
+
+            /* Déplacer les liens autour de l'image */
+            .liens-gauche { order: -1; text-align: center; margin-bottom: 20px; }
+            .liens-droite { order: 1; text-align: center; margin-top: 20px; }
+
+            /* Colonnes plus fines sur mobile */
             .colonne-gauche, .colonne-droite {
-                width: 60px;
                 position: fixed;
-                top: 120px; /* descend plus les colonnes pour smartphone */
-            }
-
-            .colonne-gauche img, .colonne-droite img {
-                max-height: 100px; /* limite la hauteur pour ne pas cacher le titre */
-                margin: 5px 0;
-            }
-
-            .centre {
-                margin: 0 65px;
+                top: 0;
                 flex-direction: column;
+                justify-content: flex-start;
+                height: 100%;
             }
 
-            .liens-gauche, .liens-droite {
-                text-align: center;
-            }
-
-            h2 {
-                font-size: 32px;
-            }
-
-            .photo-centre img {
-                width: 85vw;
+            .colonne-gauche img:first-child, .colonne-droite img:first-child {
+                /* images du haut passent à côté de la photo centrale */
+                position: relative;
+                top: auto;
+                max-width: 40px;
+                max-height: 40px;
+                margin: 10px;
             }
         }
     </style>
