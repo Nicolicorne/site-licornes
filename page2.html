@@ -1,102 +1,507 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La preuve ontologique de l'existence des licornes</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Cinzel+Decorative:wght@400;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #ffc0cb; /* fond rose */
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
-            font-family: 'Roboto Slab', serif; /* police élégante mais lisible */
-            line-height: 1.7;
-            color: #4b2e2e;
-            padding: 40px;
+            padding: 0;
+        }
+
+        body {
+            background: #08000f;
+            font-family: 'IM Fell English', serif;
+            color: #e8d5b0;
+            line-height: 1.9;
+            overflow-x: hidden;
+        }
+
+        /* ── Fond ── */
+        .bg-nebula {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 70% 50% at 15% 20%, #1a003388, transparent),
+                radial-gradient(ellipse 50% 70% at 85% 80%, #0a002266, transparent),
+                radial-gradient(ellipse 60% 60% at 50% 50%, #200040aa, transparent),
+                #08000f;
+            z-index: 0;
+        }
+
+        /* ── Étoiles ── */
+        .stars-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+            animation: twinkle var(--dur, 3s) var(--delay, 0s) infinite alternate ease-in-out;
+        }
+
+        @keyframes twinkle {
+            from { opacity: 0.1; transform: scale(0.8); }
+            to   { opacity: 1;   transform: scale(1.5); }
+        }
+
+        /* ── Particules flottantes ── */
+        .particule {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #f5d97e;
+            pointer-events: none;
+            z-index: 1;
+            animation: flotter var(--df, 8s) var(--dlf, 0s) infinite ease-in-out;
+        }
+
+        @keyframes flotter {
+            0%   { transform: translateY(0px) translateX(0px); opacity: 0; }
+            20%  { opacity: 0.6; }
+            80%  { opacity: 0.3; }
+            100% { transform: translateY(-120px) translateX(30px); opacity: 0; }
+        }
+
+        /* ── Bordure parchemin ── */
+        .parchemin-bord {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 10;
+            border: 14px solid transparent;
+            border-image: repeating-linear-gradient(
+                45deg,
+                #4a2080 0px, #9b59b6 6px, #7b2d8b 10px, #4a2080 16px
+            ) 14;
+        }
+
+        /* ── Page ── */
+        .page {
+            position: relative;
+            z-index: 2;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 60px 40px 90px;
+        }
+
+        /* ── En-tête ── */
+        .titre-bloc {
+            text-align: center;
+            margin-bottom: 56px;
+            position: relative;
+        }
+
+        .sur-titre {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 10px;
+            letter-spacing: 7px;
+            color: #b388dd;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            opacity: 0.9;
         }
 
         h1 {
-            text-align: center;
-            font-size: 40px;
-            margin-bottom: 30px;
-            color: #800000;
+            font-family: 'UnifrakturCook', cursive;
+            font-size: clamp(26px, 4.5vw, 52px);
+            color: #ddb8ff;
+            text-shadow: 0 0 20px #9b59b6, 0 0 60px #4a208066;
+            line-height: 1.2;
+            margin-bottom: 8px;
         }
 
-        h2 {
-            font-size: 28px;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            color: #800000;
-        }
-
-        p {
-            margin-bottom: 20px;
-            text-align: justify;
-        }
-
-        blockquote {
-            margin: 20px auto;
-            padding: 15px 20px;
-            background-color: #ffd6e6;
-            border-left: 5px solid #800000;
+        h1 em {
+            display: block;
+            font-family: 'IM Fell English', serif;
             font-style: italic;
-            max-width: 800px;
+            font-size: clamp(14px, 2vw, 22px);
+            color: #b388dd;
+            text-shadow: none;
+            margin-top: 10px;
+            letter-spacing: 2px;
+            opacity: 0.85;
         }
 
-        a {
-            color: blue;
-            text-decoration: underline;
+        .couronne {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            color: #9b59b6;
+            font-size: 15px;
+            letter-spacing: 4px;
+            opacity: 0.8;
+            margin-top: 16px;
+        }
+
+        .couronne::before,
+        .couronne::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #9b59b6, transparent);
+            max-width: 160px;
+        }
+
+        /* ── Intro style oracle ── */
+        .oracle {
+            text-align: center;
+            font-style: italic;
+            font-size: clamp(16px, 2.2vw, 21px);
+            color: #ddb8ff;
+            margin-bottom: 48px;
+            padding: 28px 32px;
+            border: 1px solid #9b59b633;
+            background: rgba(155, 89, 182, 0.06);
+            position: relative;
+            line-height: 1.75;
+        }
+
+        .oracle::before {
+            content: '❧';
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #08000f;
+            padding: 0 14px;
+            color: #9b59b6;
+            font-size: 22px;
+        }
+
+        .oracle::after {
+            content: '❧';
+            position: absolute;
+            bottom: -16px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(-1);
+            background: #08000f;
+            padding: 0 14px;
+            color: #9b59b6;
+            font-size: 22px;
+        }
+
+        /* ── Blocs arguments ── */
+        .argument {
+            position: relative;
+            margin-bottom: 42px;
+            padding: 32px 32px 26px;
+            background: rgba(155, 89, 182, 0.05);
+            border-left: 3px solid #9b59b655;
+            border-bottom: 1px solid #9b59b622;
+        }
+
+        .argument::before {
+            content: attr(data-titre);
+            position: absolute;
+            top: -13px;
+            left: 20px;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 9px;
+            color: #ddb8ff;
+            background: #08000f;
+            padding: 2px 14px;
+            letter-spacing: 3px;
+            border: 1px solid #9b59b644;
+        }
+
+        .argument p {
+            font-size: clamp(15px, 1.9vw, 19px);
+            line-height: 1.95;
+            text-align: justify;
+            color: #e8d5b0;
+            margin-bottom: 16px;
+        }
+
+        .argument p:last-child { margin-bottom: 0; }
+
+        /* ── Lettrine violette ── */
+        .lettrine {
+            float: left;
+            font-family: 'UnifrakturCook', cursive;
+            font-size: 5em;
+            color: #ddb8ff;
+            line-height: 0.72;
+            margin: 8px 10px 0 0;
+            text-shadow: 0 0 18px #9b59b6aa;
+        }
+
+        /* ── Numéro romain décoratif ── */
+        .numero-romain {
+            display: block;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: #9b59b6;
+            margin-bottom: 16px;
+            opacity: 0.8;
+        }
+
+        /* ── Citation centrale ── */
+        .citation-centrale {
+            margin: 48px 0;
+            padding: 30px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .citation-centrale::before,
+        .citation-centrale::after {
+            content: '';
+            display: block;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #9b59b6, #ddb8ff, #9b59b6, transparent);
+            margin: 0 auto;
+            max-width: 90%;
+        }
+
+        .citation-centrale blockquote {
+            font-style: italic;
+            font-size: clamp(17px, 2.3vw, 24px);
+            color: #ddb8ff;
+            line-height: 1.7;
+            padding: 24px 0;
+            border: none;
+            background: none;
+            position: relative;
+        }
+
+        .citation-centrale blockquote::before {
+            content: '\201C';
+            font-family: 'UnifrakturCook', cursive;
+            font-size: 5em;
+            color: #9b59b644;
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            line-height: 1;
+        }
+
+        /* ── Syllogisme ── */
+        .syllogisme {
+            margin: 40px 0;
+            padding: 28px 32px;
+            border: 1px solid #9b59b644;
+            background: rgba(155, 89, 182, 0.08);
+            position: relative;
+        }
+
+        .syllogisme::before {
+            content: 'Syllogisme';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 9px;
+            letter-spacing: 4px;
+            color: #ddb8ff;
+            background: #08000f;
+            padding: 2px 18px;
+            white-space: nowrap;
+            border: 1px solid #9b59b644;
+        }
+
+        .syllogisme-ligne {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 14px;
+            font-size: clamp(14px, 1.8vw, 18px);
+            color: #e8d5b0;
+            font-style: italic;
+        }
+
+        .syllogisme-ligne:last-child { margin-bottom: 0; }
+
+        .syllogisme-ligne .prefixe {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 9px;
+            letter-spacing: 2px;
+            color: #9b59b6;
+            padding-top: 4px;
+            min-width: 80px;
+            flex-shrink: 0;
+        }
+
+        .syllogisme-separateur {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #9b59b6, transparent);
+            margin: 14px 0;
+        }
+
+        .conclusion-ligne {
+            font-size: clamp(15px, 2vw, 20px);
+            color: #ddb8ff;
+            font-style: italic;
             font-weight: bold;
         }
 
+        /* ── Séparateur ── */
+        .separateur {
+            text-align: center;
+            color: #9b59b6;
+            letter-spacing: 8px;
+            opacity: 0.45;
+            margin: 10px 0 40px;
+            font-size: 13px;
+        }
+
+        /* ── Lien retour ── */
         .retour {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 64px;
+        }
+
+        .retour a {
+            display: inline-block;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #9b59b6;
+            text-decoration: none;
+            padding: 14px 38px;
+            border: 1px solid #9b59b655;
+            background: rgba(155, 89, 182, 0.06);
+            transition: all 0.35s;
+        }
+
+        .retour a:hover {
+            background: rgba(155, 89, 182, 0.22);
+            border-color: #ddb8ff;
+            color: #ddb8ff;
+            box-shadow: 0 0 28px #9b59b644;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .page { padding: 50px 20px 60px; }
+            .argument { padding: 24px 18px 20px; }
+            .argument p { text-align: left; }
+            .citation-centrale { padding: 20px 10px; }
+            .syllogisme { padding: 22px 16px; }
+            .parchemin-bord { border-width: 8px; }
         }
     </style>
 </head>
-
 <body>
 
-    <h1>De l'Existence Nécessaire de la Licorne</h1>
-    <h2>Sive : Argumentum de Monocerotis</h2>
+    <div class="bg-nebula"></div>
+    <div class="stars-layer" id="stars"></div>
+    <div id="particules"></div>
+    <div class="parchemin-bord"></div>
 
-    <p>
-        Ô toi, Lecteur, qui dans l'insensatez de ton cœur pourrais dire : « La Licorne n'est qu'une chimère peinte sur les murs de mon imagination », prête l'oreille à la nécessité de la Raison. Car si nous définissons la Licorne comme « l'être animal au-delà duquel aucune splendeur ne peut être conçue », alors sa simple pensée dans ton esprit contient déjà le germe de sa vérité physique.
-    </p>
+    <div class="page">
 
-    <h2>I. La définition de l'Essence</h2>
+        <div class="titre-bloc">
+            <div class="sur-titre">Codex Unicornis — Tome Second</div>
+            <h1>
+                De l'Existence Nécessaire<br>de la Licorne
+                <em>Sive : Argumentum de Monocerotis</em>
+            </h1>
+            <div class="couronne">✦ &nbsp; II &nbsp; ✦</div>
+        </div>
 
-    <p>
-        Considérons ce que nous entendons par "Licorne". Elle n'est pas un simple cheval cornu, elle est l'archétype de la pureté animale, la créature dont la noblesse et la grâce surpassent toute autre forme de vie sylvestre. Elle est, par définition, le sommet de la perfection zoologique. Si tu comprends ce terme, alors la Licorne existe au moins dans ton entendement. Même l'ignorant qui nie son existence possède en lui le concept de cette perfection, car pour nier une chose, il faut d'abord que l'esprit puisse la concevoir.
-    </p>
+        <div class="oracle">
+            Ô toi, Lecteur, qui dans l'insensatez de ton cœur pourrais dire : « La Licorne n'est qu'une chimère peinte sur les murs de mon imagination », prête l'oreille à la nécessité de la Raison. Car si nous définissons la Licorne comme <em>l'être animal au-delà duquel aucune splendeur ne peut être conçue</em>, alors sa simple pensée dans ton esprit contient déjà le germe de sa vérité physique.
+        </div>
 
-    <h2>II. La contradiction de la non-existence</h2>
+        <div class="argument" data-titre="I — LA DÉFINITION DE L'ESSENCE">
+            <span class="numero-romain">Premier Argument</span>
+            <p><span class="lettrine">C</span>onsidérons ce que nous entendons par « Licorne ». Elle n'est pas un simple cheval cornu — elle est l'archétype de la pureté animale, la créature dont la noblesse et la grâce surpassent toute autre forme de vie sylvestre. Elle est, par définition, le sommet de la perfection zoologique.</p>
+            <p>Si tu comprends ce terme, alors la Licorne existe au moins dans ton entendement. Même l'ignorant qui nie son existence possède en lui le concept de cette perfection, car pour nier une chose, il faut d'abord que l'esprit puisse la concevoir.</p>
+        </div>
 
-    <p>
-        Or, posons la question : est-il plus grand d'exister seulement dans la fragilité de l'esprit humain, ou d'exister à la fois dans l'esprit et dans la solidité de la réalité ?
-    </p>
+        <div class="separateur">· · · ✦ · · ·</div>
 
-    <p>
-        Sans nul doute, ce qui possède la réalité est plus grand, plus parfait et plus puissant que ce qui n'est qu'une ombre de pensée. Si donc la Licorne — cet être au-delà duquel nulle splendeur animale ne peut être conçue — n'existait que dans l'entendement, on pourrait immédiatement concevoir un être supérieur : une Licorne qui, elle, existerait véritablement dans les forêts du monde.
-    </p>
+        <div class="argument" data-titre="II — LA CONTRADICTION DE LA NON-EXISTENCE">
+            <span class="numero-romain">Deuxième Argument</span>
+            <p><span class="lettrine">O</span>r, posons la question : est-il plus grand d'exister seulement dans la fragilité de l'esprit humain, ou d'exister à la fois dans l'esprit et dans la solidité de la réalité ?</p>
+            <p>Sans nul doute, ce qui possède la réalité est plus grand, plus parfait et plus puissant que ce qui n'est qu'une ombre de pensée. Si donc la Licorne — cet être au-delà duquel nulle splendeur animale ne peut être conçue — n'existait que dans l'entendement, on pourrait immédiatement concevoir un être supérieur : une Licorne qui, elle, existerait véritablement dans les forêts du monde.</p>
+            <p>Mais cela est une contradiction manifeste ! On ne peut concevoir un être « plus grand que celui au-delà duquel on ne peut rien concevoir de plus grand ». Si la Licorne est le sommet de la perfection, elle ne peut manquer de la plus fondamentale des perfections : l'existence.</p>
+        </div>
 
-    <p>
-        Mais cela est une contradiction manifeste ! On ne peut concevoir un être « plus grand que celui au-delà duquel on ne peut rien concevoir de plus grand ». Si la Licorne est le sommet de la perfection, elle ne peut manquer de la plus fondamentale des perfections : l'existence.
-    </p>
+        <div class="syllogisme">
+            <div class="syllogisme-ligne">
+                <span class="prefixe">Prémisse I</span>
+                <span>La Licorne est l'être animal au-delà duquel nulle splendeur ne peut être conçue.</span>
+            </div>
+            <div class="syllogisme-ligne">
+                <span class="prefixe">Prémisse II</span>
+                <span>Ce qui existe dans la réalité est plus grand que ce qui n'existe que dans l'entendement.</span>
+            </div>
+            <div class="syllogisme-ligne">
+                <span class="prefixe">Prémisse III</span>
+                <span>La Licorne existe au moins dans l'entendement de quiconque la conçoit.</span>
+            </div>
+            <div class="syllogisme-separateur"></div>
+            <div class="syllogisme-ligne conclusion-ligne">
+                <span class="prefixe" style="color:#ddb8ff;">Conclusion</span>
+                <span>Donc la Licorne existe nécessairement dans la réalité.</span>
+            </div>
+        </div>
 
-    <h2>III. Conclusion nécessaire</h2>
+        <div class="separateur">· · · ✦ · · ·</div>
 
-    <p>
-        Il s'ensuit donc, par la seule force de sa définition, que la Licorne ne peut pas ne pas être. Elle n'est pas une créature accidentelle que le hasard aurait pu omettre ; elle est une nécessité de la complétude du monde. Puisque l'esprit saisit sa perfection, et puisque la perfection exige l'existence, la Licorne foule nécessairement la terre, car si elle ne le faisait pas, elle cesserait d'être la Licorne que nous concevons.
-    </p>
+        <div class="argument" data-titre="III — CONCLUSION NÉCESSAIRE">
+            <span class="numero-romain">Troisième Argument</span>
+            <p><span class="lettrine">I</span>l s'ensuit donc, par la seule force de sa définition, que la Licorne ne peut pas ne pas être. Elle n'est pas une créature accidentelle que le hasard aurait pu omettre ; elle est une nécessité de la complétude du monde. Puisque l'esprit saisit sa perfection, et puisque la perfection exige l'existence, la Licorne foule nécessairement la terre — car si elle ne le faisait pas, elle cesserait d'être la Licorne que nous concevons.</p>
+        </div>
 
-    <blockquote>
-        « Tu existes donc si véritablement, ô noble bête, que l'on ne peut même pas penser que tu n'existes pas sans tomber dans l'erreur de la logique. »
-    </blockquote>
+        <div class="citation-centrale">
+            <blockquote>
+                « Tu existes donc si véritablement, ô noble bête, que l'on ne peut même pas penser que tu n'existes pas sans tomber dans l'erreur de la logique. »
+            </blockquote>
+        </div>
 
-    <div class="retour">
-        <a href="index.html">← Retour à l’accueil</a>
+        <div class="retour">
+            <a href="index.html">← Retour à l'accueil</a>
+        </div>
+
     </div>
+
+    <script>
+        /* Étoiles */
+        const starsEl = document.getElementById('stars');
+        for (let i = 0; i < 90; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            const size = Math.random() * 2.5 + 0.4;
+            s.style.cssText = [
+                `width:${size}px`,
+                `height:${size}px`,
+                `top:${Math.random() * 100}%`,
+                `left:${Math.random() * 100}%`,
+                `--dur:${(2 + Math.random() * 3).toFixed(1)}s`,
+                `--delay:${(Math.random() * 5).toFixed(1)}s`
+            ].join(';');
+            starsEl.appendChild(s);
+        }
+
+        /* Particules flottantes dorées */
+        const partEl = document.getElementById('particules');
+        for (let i = 0; i < 18; i++) {
+            const p = document.createElement('div');
+            p.className = 'particule';
+            p.style.cssText = [
+                `left:${Math.random() * 100}%`,
+                `top:${40 + Math.random() * 55}%`,
+                `--df:${(6 + Math.random() * 8).toFixed(1)}s`,
+                `--dlf:${(Math.random() * 8).toFixed(1)}s`,
+                `opacity:0`
+            ].join(';');
+            partEl.appendChild(p);
+        }
+    </script>
 
 </body>
 </html>
