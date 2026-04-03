@@ -16,19 +16,18 @@
             margin-top: 50px;
             font-size: 50px;
             color: darkred;
+            padding: 0 10px;
         }
 
         .container {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            margin-top: 50px;
             position: relative;
+            margin-top: 50px;
         }
 
         .colonne-gauche, .colonne-droite {
-            position: absolute;
+            position: fixed;
             top: 0;
+            width: 120px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -37,31 +36,40 @@
         .colonne-gauche { left: 0; }
         .colonne-droite { right: 0; }
 
+        .colonne-gauche img, .colonne-droite img {
+            margin-bottom: 10px;
+            width: 100%;
+            height: auto;
+        }
+
         .centre {
+            margin: 0 140px;
             display: flex;
-            flex-direction: row;
-            align-items: center; /* centre vertical */
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
         .liens-gauche, .liens-droite {
             display: flex;
             flex-direction: column;
-            justify-content: center; /* aligne les liens verticalement */
-            height: 300px; /* hauteur correspondant à la moitié de la photo */
+            justify-content: center;
+            margin: 10px;
         }
 
-        .liens-gauche { margin-right: 20px; text-align: right; }
-        .liens-droite { margin-left: 20px; text-align: left; }
+        .liens-gauche { text-align: right; }
+        .liens-droite { text-align: left; }
 
         .photo-centre {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 0 20px;
+            margin: 10px;
         }
 
         .photo-centre img {
             width: 300px;
+            max-width: 90vw;
             box-shadow: 0px 0px 20px black;
             border: 3px solid black;
             margin-bottom: 10px;
@@ -69,18 +77,53 @@
 
         .liens-gauche a, .liens-droite a, .photo-centre a {
             margin-bottom: 10px;
-            color: blue;           /* couleur des liens */
+            color: blue;
             text-decoration: none;
             font-weight: bold;
+            word-break: break-word;
+            font-size: clamp(16px, 2vw, 22px); /* taille responsive */
         }
 
         .liens-gauche a:hover, .liens-droite a:hover, .photo-centre a:hover {
-            color: darkblue;       /* bleu foncé au survol */
+            color: darkblue;
             text-decoration: underline;
         }
 
-        .colonne-gauche img, .colonne-droite img {
-            margin-bottom: 10px;
+        @media screen and (max-width: 900px) {
+            .colonne-gauche, .colonne-droite {
+                width: 80px;
+            }
+
+            .centre {
+                margin: 0 90px;
+            }
+
+            h2 {
+                font-size: 40px;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .colonne-gauche, .colonne-droite {
+                width: 60px;
+            }
+
+            .centre {
+                margin: 0 65px;
+                flex-direction: column;
+            }
+
+            .liens-gauche, .liens-droite {
+                text-align: center;
+            }
+
+            h2 {
+                font-size: 32px;
+            }
+
+            .photo-centre img {
+                width: 85vw;
+            }
         }
     </style>
 </head>
@@ -91,33 +134,28 @@
 
     <div class="container">
 
-        <!-- Colonnes sur les bords -->
         <div class="colonne-gauche">
-            <img src="licornegauche.png" style="height: 150px;">
-            <img src="colonne.png" style="height: 750px;">
+            <img src="licornegauche.png">
+            <img src="colonne.png">
         </div>
 
         <div class="colonne-droite">
-            <img src="licornedroite.png" style="height: 150px;">
-            <img src="colonne.png" style="height: 750px;">
+            <img src="licornedroite.png">
+            <img src="colonne.png">
         </div>
 
-        <!-- Zone centrale avec liens et photo -->
         <div class="centre">
 
-            <!-- Liens gauche -->
             <div class="liens-gauche">
                 <a href="page1.html">Les preuves historiques de l'existence des licornes</a>
                 <a href="page2.html">La preuve ontologique de l'existence des licornes</a>
             </div>
 
-            <!-- Image centrale -->
             <div class="photo-centre">
                 <img src="photo.jpg">
                 <a href="page5.html">Ne pas savoir que les licornes existent, est-ce grave ?</a>
             </div>
 
-            <!-- Liens droite -->
             <div class="liens-droite">
                 <a href="page3.html">Les preuves scientifiques de l'existence des licornes</a>
                 <a href="page4.html">Les preuves réductionnistes de l'existence des licornes</a>
