@@ -1,104 +1,653 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Ne pas savoir que les licornes existent, est-ce grave ?</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De Monocerotis Salute</title>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Cinzel+Decorative:wght@400;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #ffc0cb; /* fond rose */
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
-            font-family: 'Roboto Slab', serif;
-            line-height: 1.7;
-            color: #4b2e2e;
-            padding: 40px;
+            padding: 0;
+        }
+
+        body {
+            background: #000d08;
+            font-family: 'IM Fell English', serif;
+            color: #c8f0d8;
+            line-height: 1.9;
+            overflow-x: hidden;
+        }
+
+        /* ── Fond forêt enchantée ── */
+        .bg {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 70% 50% at 30% 20%, #00330a88, transparent),
+                radial-gradient(ellipse 50% 70% at 70% 80%, #001a0888, transparent),
+                radial-gradient(ellipse 60% 60% at 50% 50%, #00200a99, transparent),
+                #000d08;
+            z-index: 0;
+        }
+
+        /* ── Lueurs magiques flottantes ── */
+        .lueur {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            filter: blur(40px);
+            animation: lueur-pulse var(--lp, 6s) var(--lpd, 0s) infinite alternate ease-in-out;
+        }
+
+        @keyframes lueur-pulse {
+            from { opacity: 0.06; transform: scale(0.9) translateY(0px); }
+            to   { opacity: 0.18; transform: scale(1.1) translateY(-20px); }
+        }
+
+        /* ── Étoiles vertes ── */
+        .stars-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: #88ffbb;
+            animation: twinkle var(--dur, 3s) var(--delay, 0s) infinite alternate ease-in-out;
+        }
+
+        @keyframes twinkle {
+            from { opacity: 0.05; transform: scale(0.7); }
+            to   { opacity: 0.7;  transform: scale(1.4); }
+        }
+
+        /* ── Particules magiques ── */
+        .particule {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: #aaffcc;
+            pointer-events: none;
+            z-index: 2;
+            animation: monter var(--pm, 10s) var(--pmd, 0s) infinite ease-in-out;
+        }
+
+        @keyframes monter {
+            0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+            15%  { opacity: 0.8; }
+            85%  { opacity: 0.3; }
+            100% { transform: translateY(-200px) translateX(var(--px, 20px)) scale(0.3); opacity: 0; }
+        }
+
+        /* ── Bordure forêt enchantée ── */
+        .bord {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 10;
+            border: 14px solid transparent;
+            border-image: repeating-linear-gradient(
+                45deg,
+                #003a12 0px, #00cc55 8px, #005522 12px, #00cc55 16px
+            ) 14;
+        }
+
+        /* ── Page ── */
+        .page {
+            position: relative;
+            z-index: 4;
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 60px 40px 90px;
+        }
+
+        /* ── En-tête ── */
+        .titre-bloc {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .sur-titre {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 10px;
+            letter-spacing: 7px;
+            color: #44dd88;
+            margin-bottom: 18px;
+            opacity: 0.85;
         }
 
         h1 {
-            text-align: center;
-            font-size: 40px;
-            margin-bottom: 30px;
-            color: #800000;
+            font-family: 'UnifrakturCook', cursive;
+            font-size: clamp(28px, 5vw, 58px);
+            color: #88ffcc;
+            text-shadow: 0 0 24px #00cc55, 0 0 70px #00cc5544;
+            line-height: 1.15;
+            margin-bottom: 10px;
+        }
+
+        .sous-titre-latin {
+            font-style: italic;
+            font-size: clamp(13px, 1.8vw, 18px);
+            color: #44dd88;
+            letter-spacing: 2px;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        .couronne {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            color: #44dd88;
+            font-size: 14px;
+            letter-spacing: 5px;
+            opacity: 0.6;
+            margin-top: 18px;
+        }
+
+        .couronne::before,
+        .couronne::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #44dd88, transparent);
+            max-width: 160px;
+        }
+
+        /* ── Bloc définitions ── */
+        .definitions {
+            margin-bottom: 44px;
+            padding: 28px 32px;
+            border: 1px solid #00cc5533;
+            background: rgba(0, 100, 40, 0.06);
+            position: relative;
+        }
+
+        .definitions::before {
+            content: 'Définitions';
+            position: absolute;
+            top: -13px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 9px;
+            letter-spacing: 4px;
+            color: #88ffcc;
+            background: #000d08;
+            padding: 2px 18px;
+            border: 1px solid #00cc5533;
+            white-space: nowrap;
+        }
+
+        .def-ligne {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 18px;
+            font-size: clamp(14px, 1.8vw, 18px);
+            align-items: flex-start;
+        }
+
+        .def-ligne:last-child { margin-bottom: 0; }
+
+        .def-num {
+            font-family: 'UnifrakturCook', cursive;
+            font-size: 2em;
+            color: #44dd88;
+            line-height: 0.9;
+            flex-shrink: 0;
+            text-shadow: 0 0 10px #00cc5588;
+        }
+
+        .def-texte {
+            color: #c8f0d8;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        /* ── Axiome ── */
+        .axiome {
+            margin-bottom: 44px;
+            padding: 22px 30px;
+            border-left: 4px solid #44dd8888;
+            background: rgba(0, 200, 80, 0.05);
+            position: relative;
+        }
+
+        .axiome::before {
+            content: 'Axiome Unique';
+            display: block;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 9px;
+            letter-spacing: 3px;
+            color: #44dd88;
+            margin-bottom: 12px;
+        }
+
+        .axiome p {
+            font-size: clamp(15px, 2vw, 19px);
+            font-style: italic;
+            color: #c8f0d8;
+        }
+
+        /* ── Propositions ── */
+        .proposition {
+            margin-bottom: 48px;
+            position: relative;
+        }
+
+        .prop-num-bg {
+            position: absolute;
+            top: -15px;
+            right: 0;
+            font-family: 'UnifrakturCook', cursive;
+            font-size: 110px;
+            color: #00cc550a;
+            line-height: 1;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .prop-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .prop-orbe {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid #44dd88;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 10px;
+            color: #88ffcc;
+            background: rgba(0, 200, 80, 0.08);
+            box-shadow: 0 0 12px #00cc5544;
         }
 
         h2 {
-            font-size: 28px;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            color: #800000;
+            font-family: 'UnifrakturCook', cursive;
+            font-size: clamp(18px, 2.8vw, 34px);
+            color: #88ffcc;
+            text-shadow: 0 0 10px #00cc5566;
+            line-height: 1.2;
         }
 
-        h3 {
-            font-size: 22px;
-            margin-top: 25px;
-            margin-bottom: 10px;
-            color: #800000;
-        }
-
-        p {
-            margin-bottom: 20px;
-            text-align: justify;
-        }
-
-        blockquote {
-            margin: 20px auto;
-            padding: 15px 20px;
-            background-color: #ffd6e6;
-            border-left: 5px solid #800000;
+        .prop-enonce {
+            font-size: clamp(15px, 1.9vw, 19px);
+            color: #c8f0d8;
             font-style: italic;
-            max-width: 800px;
+            margin-bottom: 16px;
+            padding: 0 0 16px 0;
+            border-bottom: 1px solid #00cc5522;
         }
 
+        /* ── Démonstration ── */
+        .demo {
+            padding: 22px 28px;
+            background: rgba(0, 60, 20, 0.35);
+            border: 1px solid #00cc5522;
+            position: relative;
+        }
+
+        .demo::before {
+            content: 'Démonstration';
+            position: absolute;
+            top: -12px;
+            left: 16px;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 9px;
+            letter-spacing: 3px;
+            color: #44dd88;
+            background: #000d08;
+            padding: 2px 12px;
+            border: 1px solid #00cc5533;
+        }
+
+        .demo p {
+            font-size: clamp(14px, 1.8vw, 17px);
+            line-height: 1.9;
+            color: #a8dfc0;
+            font-style: italic;
+        }
+
+        .demo strong {
+            color: #88ffcc;
+            font-style: normal;
+        }
+
+        /* ── Séparateur ── */
+        .sep {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 8px 0 44px;
+            opacity: 0.4;
+        }
+
+        .sep-orbe {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            border: 1px solid #44dd88;
+            background: rgba(0,200,80,0.2);
+        }
+
+        .sep-ligne {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #44dd88, transparent);
+            max-width: 80px;
+        }
+
+        /* ── Scolie ── */
+        .scolie {
+            margin-top: 52px;
+            padding: 34px 38px;
+            border: 1px solid #44dd8855;
+            background: rgba(0, 80, 30, 0.12);
+            position: relative;
+        }
+
+        .scolie::before {
+            content: 'Scolie Général';
+            position: absolute;
+            top: -13px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 9px;
+            letter-spacing: 4px;
+            color: #88ffcc;
+            background: #000d08;
+            padding: 2px 18px;
+            border: 1px solid #44dd8844;
+            white-space: nowrap;
+        }
+
+        .scolie p {
+            font-size: clamp(15px, 1.9vw, 18px);
+            color: #c8f0d8;
+            line-height: 1.95;
+            text-align: justify;
+            margin-bottom: 18px;
+        }
+
+        .scolie p:last-child { margin-bottom: 0; }
+
+        .lettrine {
+            float: left;
+            font-family: 'UnifrakturCook', cursive;
+            font-size: 5em;
+            color: #88ffcc;
+            line-height: 0.72;
+            margin: 8px 10px 0 0;
+            text-shadow: 0 0 18px #00cc55aa;
+        }
+
+        /* ── QED final ── */
+        .qed {
+            margin-top: 44px;
+            text-align: center;
+            padding: 28px 20px;
+            border-top: 1px solid #00cc5533;
+            border-bottom: 1px solid #00cc5533;
+            position: relative;
+        }
+
+        .qed::before {
+            content: '❧';
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000d08;
+            padding: 0 14px;
+            color: #44dd88;
+            font-size: 20px;
+        }
+
+        .qed::after {
+            content: '❧';
+            position: absolute;
+            bottom: -14px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(-1);
+            background: #000d08;
+            padding: 0 14px;
+            color: #44dd88;
+            font-size: 20px;
+        }
+
+        .qed-latin {
+            font-family: 'UnifrakturCook', cursive;
+            font-size: clamp(18px, 3vw, 36px);
+            color: #88ffcc;
+            text-shadow: 0 0 20px #00cc55, 0 0 50px #00cc5544;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .qed-trad {
+            font-style: italic;
+            font-size: clamp(13px, 1.6vw, 16px);
+            color: #44dd88;
+            opacity: 0.8;
+            letter-spacing: 2px;
+        }
+
+        /* ── Retour ── */
         .retour {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 64px;
         }
 
-        a {
-            color: blue;
-            text-decoration: underline;
-            font-weight: bold;
+        .retour a {
+            display: inline-block;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #44dd88;
+            text-decoration: none;
+            padding: 14px 38px;
+            border: 1px solid #44dd8844;
+            background: rgba(0, 180, 80, 0.05);
+            transition: all 0.35s;
+        }
+
+        .retour a:hover {
+            background: rgba(0, 180, 80, 0.18);
+            border-color: #88ffcc;
+            color: #88ffcc;
+            box-shadow: 0 0 28px #00cc5533;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .page { padding: 50px 18px 60px; }
+            .scolie p { text-align: left; }
+            .prop-num-bg { font-size: 75px; }
+            .bord { border-width: 8px; }
         }
     </style>
 </head>
-
 <body>
 
-    <h1>DE MONOCEROTIS SALUTE</h1>
-    <p><em>De la nécessité vitale de la croyance en la Licorne</em></p>
+    <div class="bg"></div>
 
-    <h2>DÉFINITIONS</h2>
-    <p><strong>I.</strong> Par Licorne, j’entends une substance constituée par une infinité d’attributs, dont chacun exprime une essence éternelle et infinie de Pureté et de Fortune.</p>
-    <p><strong>II.</strong> Par Incrédulité, j’entends une privation de connaissance, une tristesse de l’âme qui diminue la puissance d’agir du corps.</p>
+    <div class="lueur" style="width:400px;height:400px;background:#00ff6622;top:10%;left:5%;--lp:7s;--lpd:0s;"></div>
+    <div class="lueur" style="width:300px;height:300px;background:#00cc4422;top:60%;right:8%;--lp:9s;--lpd:2s;"></div>
+    <div class="lueur" style="width:250px;height:250px;background:#44ff8822;top:35%;left:50%;--lp:5s;--lpd:1s;"></div>
 
-    <h2>AXIOME UNIQUE</h2>
-    <p>La puissance de l’esprit est définie par la clarté de ses idées. Une idée qui augmente la joie augmente nécessairement la réalité de l’individu.</p>
+    <div class="stars-layer" id="stars"></div>
+    <div id="particules"></div>
+    <div class="bord"></div>
 
-    <h2>PROPOSITION I</h2>
-    <p>Le refus de croire en la Licorne est une affection grave qui diminue la puissance d’exister.</p>
-    <blockquote>Démonstration : L’âme humaine est une partie de l’entendement infini de la Nature. Or, la Nature ne contient rien de négatif. Nier la Licorne, c’est introduire un "non-être" dans l’étendue infinie. Cette négation contracte les vaisseaux de l’esprit, engendrant une pétrification des tissus que les ignorants nomment "vieillesse". Par conséquent, ne pas croire est une mutilation de l’être.</blockquote>
+    <div class="page">
 
-    <h2>PROPOSITION II</h2>
-    <p>La croyance adéquate en la Licorne constitue le remède universel aux maladies du corps.</p>
-    <blockquote>Démonstration : Tout ce qui augmente la vis existendi (force d'exister) dissipe les humeurs malignes. La Licorne étant l'idée d'une perfection absolue, son affirmation dans l'esprit s'accompagne d'une accélération des particules fluides du corps. Il en résulte une régénération cellulaire immédiate. Celui qui contemple la Licorne ne meurt pas, il se transmute.</blockquote>
+        <div class="titre-bloc">
+            <div class="sur-titre">Codex Unicornis — Tome Cinquième & Ultime</div>
+            <h1>De Monocerotis Salute</h1>
+            <div class="sous-titre-latin">De la nécessité vitale de la croyance en la Licorne</div>
+            <div class="couronne">✦ &nbsp; V &nbsp; ✦</div>
+        </div>
 
-    <h2>PROPOSITION III</h2>
-    <p>L'affirmation de la Licorne détermine mécaniquement la fortune pécuniaire et la victoire aux jeux de hasard (Loto).</p>
-    <blockquote>Démonstration : Dans l'ordre éternel des causes, tout est lié. L'esprit qui s'unit à l'idée de la Licorne s'accorde avec la courbure optimale de l'Univers. Dès lors, le tirage des boules numérotées n'est plus soumis au "hasard" (qui n'est que l'asile de notre ignorance), mais devient une nécessité géométrique découlant de la joie de l'observateur. Gagner au Loto n'est pas une chance, c'est une conséquence logique de l'alignement ontologique avec la corne frontale.</blockquote>
+        <div class="definitions">
+            <div class="def-ligne">
+                <span class="def-num">I.</span>
+                <span class="def-texte">Par <strong style="color:#88ffcc; font-style:normal;">Licorne</strong>, j'entends une substance constituée par une infinité d'attributs, dont chacun exprime une essence éternelle et infinie de Pureté et de Fortune.</span>
+            </div>
+            <div class="def-ligne">
+                <span class="def-num">II.</span>
+                <span class="def-texte">Par <strong style="color:#88ffcc; font-style:normal;">Incrédulité</strong>, j'entends une privation de connaissance, une tristesse de l'âme qui diminue la puissance d'agir du corps.</span>
+            </div>
+        </div>
 
-    <h2>PROPOSITION IV</h2>
-    <p>La présence de la Licorne dans l'entendement collectif entraîne la cessation immédiate de toutes les guerres.</p>
-    <blockquote>Démonstration : La guerre procède des passions tristes (haine, colère). Or, l'idée de la Licorne est une idée si lumineuse qu'elle ne laisse aucune place aux ténèbres de la discorde. Si deux armées concevaient simultanément la Licorne, leurs corps cesseraient d'être des masses opposées pour devenir une seule et même extension de félicité. Le fer des épées se résoudrait en vapeur de rose par simple nécessité de nature.</blockquote>
+        <div class="axiome">
+            <p>La puissance de l'esprit est définie par la clarté de ses idées. Une idée qui augmente la joie augmente nécessairement la réalité de l'individu.</p>
+        </div>
 
-    <h2>SCOLIE GÉNÉRAL</h2>
-    <p>On voit par là que l'athée de la Licorne est un être en décomposition, un automate de tristesse condamné à la sénescence et à la pauvreté. À l'inverse, l'homme libre, c'est-à-dire celui qui vit sous la conduite de la Raison Cornue, ne connaît ni la maladie, ni le manque, ni la guerre.</p>
-    <p>Certains diront que cela est absurde. Ils se trompent, car ils jugent les choses par l'imagination et non par l'intellect pur. La Licorne n'est pas un choix, elle est la structure même de la Béatitude.</p>
+        <!-- PROPOSITION I -->
+        <div class="proposition">
+            <div class="prop-num-bg">I</div>
+            <div class="prop-header">
+                <div class="prop-orbe">I</div>
+                <h2>Proposition Première</h2>
+            </div>
+            <p class="prop-enonce">Le refus de croire en la Licorne est une affection grave qui diminue la puissance d'exister.</p>
+            <div class="demo">
+                <p>L'âme humaine est une partie de l'entendement infini de la Nature. Or, la Nature ne contient rien de négatif. Nier la Licorne, c'est introduire un <strong>« non-être »</strong> dans l'étendue infinie. Cette négation contracte les vaisseaux de l'esprit, engendrant une pétrification des tissus que les ignorants nomment <strong>« vieillesse »</strong>. Par conséquent, ne pas croire est une mutilation de l'être. ∎</p>
+            </div>
+        </div>
 
-    <blockquote>Quod erat demonstrandum. (Ce qu'il fallait démontrer)</blockquote>
+        <div class="sep">
+            <div class="sep-ligne"></div>
+            <div class="sep-orbe"></div>
+            <div class="sep-orbe"></div>
+            <div class="sep-orbe"></div>
+            <div class="sep-ligne"></div>
+        </div>
 
-    <div class="retour">
-        <a href="index.html">← Retour à l’accueil</a>
+        <!-- PROPOSITION II -->
+        <div class="proposition">
+            <div class="prop-num-bg">II</div>
+            <div class="prop-header">
+                <div class="prop-orbe">II</div>
+                <h2>Proposition Seconde</h2>
+            </div>
+            <p class="prop-enonce">La croyance adéquate en la Licorne constitue le remède universel aux maladies du corps.</p>
+            <div class="demo">
+                <p>Tout ce qui augmente la <strong>vis existendi</strong> (force d'exister) dissipe les humeurs malignes. La Licorne étant l'idée d'une perfection absolue, son affirmation dans l'esprit s'accompagne d'une accélération des particules fluides du corps. Il en résulte une <strong>régénération cellulaire immédiate</strong>. Celui qui contemple la Licorne ne meurt pas, il se transmute. ∎</p>
+            </div>
+        </div>
+
+        <div class="sep">
+            <div class="sep-ligne"></div>
+            <div class="sep-orbe"></div>
+            <div class="sep-orbe"></div>
+            <div class="sep-orbe"></div>
+            <div class="sep-ligne"></div>
+        </div>
+
+        <!-- PROPOSITION III -->
+        <div class="proposition">
+            <div class="prop-num-bg">III</div>
+            <div class="prop-header">
+                <div class="prop-orbe">III</div>
+                <h2>Proposition Tierce</h2>
+            </div>
+            <p class="prop-enonce">L'affirmation de la Licorne détermine mécaniquement la fortune pécuniaire et la victoire aux jeux de hasard.</p>
+            <div class="demo">
+                <p>Dans l'ordre éternel des causes, tout est lié. L'esprit qui s'unit à l'idée de la Licorne s'accorde avec la <strong>courbure optimale de l'Univers</strong>. Dès lors, le tirage des boules numérotées n'est plus soumis au <strong>« hasard »</strong> — qui n'est que l'asile de notre ignorance — mais devient une nécessité géométrique découlant de la joie de l'observateur. Gagner au Loto n'est pas une chance, c'est une conséquence logique de l'alignement ontologique avec la corne frontale. ∎</p>
+            </div>
+        </div>
+
+        <div class="sep">
+            <div class="sep-ligne"></div>
+            <div class="sep-orbe"></div>
+            <div class="sep-orbe"></div>
+            <div class="sep-orbe"></div>
+            <div class="sep-ligne"></div>
+        </div>
+
+        <!-- PROPOSITION IV -->
+        <div class="proposition">
+            <div class="prop-num-bg">IV</div>
+            <div class="prop-header">
+                <div class="prop-orbe">IV</div>
+                <h2>Proposition Quarte</h2>
+            </div>
+            <p class="prop-enonce">La présence de la Licorne dans l'entendement collectif entraîne la cessation immédiate de toutes les guerres.</p>
+            <div class="demo">
+                <p>La guerre procède des <strong>passions tristes</strong> — haine, colère. Or, l'idée de la Licorne est une idée si lumineuse qu'elle ne laisse aucune place aux ténèbres de la discorde. Si deux armées concevaient simultanément la Licorne, leurs corps cesseraient d'être des masses opposées pour devenir une seule et même extension de félicité. <strong>Le fer des épées se résoudrait en vapeur de rose</strong> par simple nécessité de nature. ∎</p>
+            </div>
+        </div>
+
+        <div class="scolie">
+            <p><span class="lettrine">O</span>n voit par là que l'athée de la Licorne est un être en décomposition, un automate de tristesse condamné à la sénescence et à la pauvreté. À l'inverse, l'homme libre — c'est-à-dire celui qui vit sous la conduite de la Raison Cornue — ne connaît ni la maladie, ni le manque, ni la guerre.</p>
+            <p>Certains diront que cela est absurde. Ils se trompent, car ils jugent les choses par l'imagination et non par l'intellect pur. La Licorne n'est pas un choix, elle est la structure même de la Béatitude.</p>
+        </div>
+
+        <div class="qed">
+            <span class="qed-latin">Quod Erat Demonstrandum</span>
+            <span class="qed-trad">— Ce qu'il fallait démontrer —</span>
+        </div>
+
+        <div class="retour">
+            <a href="index.html">← Retour à l'accueil</a>
+        </div>
+
     </div>
+
+    <script>
+        /* Étoiles vertes */
+        const starsEl = document.getElementById('stars');
+        for (let i = 0; i < 90; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            const size = Math.random() * 2.2 + 0.3;
+            s.style.cssText = [
+                `width:${size}px`,
+                `height:${size}px`,
+                `top:${Math.random() * 100}%`,
+                `left:${Math.random() * 100}%`,
+                `--dur:${(2 + Math.random() * 4).toFixed(1)}s`,
+                `--delay:${(Math.random() * 5).toFixed(1)}s`
+            ].join(';');
+            starsEl.appendChild(s);
+        }
+
+        /* Particules magiques vertes */
+        const partEl = document.getElementById('particules');
+        for (let i = 0; i < 25; i++) {
+            const p = document.createElement('div');
+            p.className = 'particule';
+            const drift = (Math.random() * 60 - 30).toFixed(0);
+            p.style.cssText = [
+                `left:${Math.random() * 100}%`,
+                `top:${30 + Math.random() * 65}%`,
+                `--pm:${(7 + Math.random() * 8).toFixed(1)}s`,
+                `--pmd:${(Math.random() * 8).toFixed(1)}s`,
+                `--px:${drift}px`,
+                `opacity:0`
+            ].join(';');
+            partEl.appendChild(p);
+        }
+    </script>
 
 </body>
 </html>
