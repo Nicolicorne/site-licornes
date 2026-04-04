@@ -1,141 +1,665 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Les preuves scientifiques de l'existence des licornes</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Cinzel+Decorative:wght@400;700&family=Share+Tech+Mono&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #ffc0cb; /* fond rose */
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
-            font-family: 'Roboto Slab', serif;
-            line-height: 1.7;
-            color: #4b2e2e;
-            padding: 40px;
+            padding: 0;
+        }
+
+        body {
+            background: #00080f;
+            font-family: 'IM Fell English', serif;
+            color: #b8d4e8;
+            line-height: 1.9;
+            overflow-x: hidden;
+        }
+
+        /* ── Fond laboratoire cosmique ── */
+        .bg {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 40% at 10% 20%, #00203388, transparent),
+                radial-gradient(ellipse 50% 60% at 90% 80%, #001a3388, transparent),
+                radial-gradient(ellipse 70% 50% at 50% 50%, #00121f99, transparent),
+                #00080f;
+            z-index: 0;
+        }
+
+        /* ── Grille scientifique en fond ── */
+        .grille {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(0, 180, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 180, 255, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* ── Étoiles ── */
+        .stars-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+            animation: twinkle var(--dur, 3s) var(--delay, 0s) infinite alternate ease-in-out;
+        }
+
+        @keyframes twinkle {
+            from { opacity: 0.05; }
+            to   { opacity: 0.7; }
+        }
+
+        /* ── Bordure labo ── */
+        .labo-bord {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 10;
+            border: 12px solid transparent;
+            border-image: repeating-linear-gradient(
+                90deg,
+                #003a5a 0px, #00b4ff 10px, #003a5a 14px, #00b4ff 24px
+            ) 12;
+        }
+
+        /* ── Scan line animée ── */
+        .scanline {
+            position: fixed;
+            left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #00b4ff44, transparent);
+            z-index: 3;
+            animation: scan 8s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            from { top: -2px; }
+            to   { top: 100%; }
+        }
+
+        /* ── Page ── */
+        .page {
+            position: relative;
+            z-index: 4;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 40px 90px;
+        }
+
+        /* ── En-tête ── */
+        .titre-bloc {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .sur-titre {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 5px;
+            color: #00b4ff;
+            margin-bottom: 16px;
+            opacity: 0.8;
         }
 
         h1 {
-            text-align: center;
-            font-size: 40px;
-            margin-bottom: 30px;
-            color: #800000;
+            font-family: 'UnifrakturCook', cursive;
+            font-size: clamp(24px, 4vw, 48px);
+            color: #7dd4f8;
+            text-shadow: 0 0 20px #00b4ff, 0 0 60px #00b4ff44;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        h1 em {
+            display: block;
+            font-family: 'Share Tech Mono', monospace;
+            font-style: normal;
+            font-size: clamp(11px, 1.5vw, 14px);
+            color: #00b4ff;
+            text-shadow: none;
+            margin-top: 12px;
+            letter-spacing: 3px;
+            opacity: 0.75;
+        }
+
+        .couronne {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            color: #00b4ff;
+            font-size: 13px;
+            letter-spacing: 5px;
+            opacity: 0.6;
+            margin-top: 16px;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .couronne::before,
+        .couronne::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #00b4ff, transparent);
+            max-width: 160px;
+        }
+
+        /* ── Intro ── */
+        .intro {
+            font-size: clamp(15px, 2vw, 19px);
+            color: #b8d4e8;
+            margin-bottom: 48px;
+            padding: 24px 28px;
+            border-left: 3px solid #00b4ff44;
+            background: rgba(0, 180, 255, 0.04);
+            line-height: 1.85;
+            font-style: italic;
+        }
+
+        /* ── Sections ── */
+        .section {
+            margin-bottom: 50px;
+        }
+
+        /* ── Titre de section style labo ── */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .section-num {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11px;
+            color: #00b4ff;
+            background: rgba(0, 180, 255, 0.1);
+            border: 1px solid #00b4ff44;
+            padding: 4px 12px;
+            letter-spacing: 2px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .section-titre-ligne {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, #00b4ff44, transparent);
         }
 
         h2 {
-            font-size: 28px;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            color: #800000;
+            font-family: 'UnifrakturCook', cursive;
+            font-size: clamp(20px, 3vw, 34px);
+            color: #7dd4f8;
+            text-shadow: 0 0 12px #00b4ff66;
+            margin-bottom: 20px;
         }
 
         h3 {
-            font-size: 22px;
-            margin-top: 25px;
-            margin-bottom: 10px;
-            color: #800000;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: clamp(11px, 1.5vw, 14px);
+            color: #00b4ff;
+            letter-spacing: 3px;
+            margin: 24px 0 12px;
+            opacity: 0.85;
         }
 
-        p {
-            margin-bottom: 20px;
+        /* ── Blocs de texte ── */
+        .bloc {
+            position: relative;
+            margin-bottom: 24px;
+            padding: 22px 26px;
+            background: rgba(0, 180, 255, 0.04);
+            border-left: 2px solid #00b4ff33;
+        }
+
+        .bloc p {
+            font-size: clamp(15px, 1.9vw, 18px);
+            line-height: 1.95;
+            text-align: justify;
+            color: #b8d4e8;
+        }
+
+        .lettrine {
+            float: left;
+            font-family: 'UnifrakturCook', cursive;
+            font-size: 4.8em;
+            color: #7dd4f8;
+            line-height: 0.72;
+            margin: 8px 10px 0 0;
+            text-shadow: 0 0 16px #00b4ffaa;
+        }
+
+        /* ── Fiche scientifique ── */
+        .fiche {
+            margin: 28px 0;
+            border: 1px solid #00b4ff33;
+            background: rgba(0, 20, 40, 0.6);
+            position: relative;
+        }
+
+        .fiche-header {
+            background: rgba(0, 180, 255, 0.1);
+            border-bottom: 1px solid #00b4ff33;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .fiche-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00b4ff;
+            box-shadow: 0 0 6px #00b4ff;
+            animation: pulse 2s infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .fiche-label {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 10px;
+            color: #00b4ff;
+            letter-spacing: 3px;
+        }
+
+        .fiche-body {
+            padding: 20px 24px;
+        }
+
+        .fiche-ligne {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 10px;
+            font-size: clamp(13px, 1.6vw, 16px);
+            border-bottom: 1px solid #00b4ff11;
+            padding-bottom: 10px;
+        }
+
+        .fiche-ligne:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .fiche-cle {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 10px;
+            color: #00b4ff;
+            min-width: 140px;
+            padding-top: 3px;
+            letter-spacing: 1px;
+            flex-shrink: 0;
+        }
+
+        .fiche-val {
+            color: #b8d4e8;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        /* ── Alerte découverte ── */
+        .alerte {
+            margin: 32px 0;
+            padding: 20px 24px;
+            border: 1px solid #00ff9944;
+            background: rgba(0, 255, 153, 0.04);
+            position: relative;
+        }
+
+        .alerte::before {
+            content: '▶ DÉCOUVERTE CLEF';
+            position: absolute;
+            top: -12px;
+            left: 16px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 9px;
+            color: #00ff99;
+            background: #00080f;
+            padding: 2px 12px;
+            letter-spacing: 3px;
+            border: 1px solid #00ff9944;
+        }
+
+        .alerte p {
+            font-size: clamp(14px, 1.8vw, 18px);
+            color: #a8e8c8;
+            line-height: 1.85;
+            font-style: italic;
+        }
+
+        /* ── Citation ── */
+        .citation {
+            margin: 40px 0;
+            padding: 26px 36px;
+            text-align: center;
+            border-top: 1px solid #00b4ff33;
+            border-bottom: 1px solid #00b4ff33;
+            background: rgba(0, 180, 255, 0.03);
+            position: relative;
+        }
+
+        .citation::before {
+            content: '//';
+            position: absolute;
+            top: -13px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 14px;
+            color: #00b4ff;
+            background: #00080f;
+            padding: 0 14px;
+        }
+
+        .citation p {
+            font-style: italic;
+            font-size: clamp(15px, 2vw, 20px);
+            color: #7dd4f8;
+            line-height: 1.7;
+        }
+
+        /* ── Synthèse ── */
+        .synthese {
+            margin-top: 50px;
+            padding: 32px 34px;
+            border: 1px solid #00b4ff44;
+            background: rgba(0, 20, 60, 0.4);
+            position: relative;
+        }
+
+        .synthese::before {
+            content: 'SYNTHÈSE — RAPPORT FINAL';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 9px;
+            color: #7dd4f8;
+            background: #00080f;
+            padding: 2px 18px;
+            letter-spacing: 3px;
+            border: 1px solid #00b4ff44;
+            white-space: nowrap;
+        }
+
+        .synthese p {
+            font-size: clamp(15px, 1.9vw, 18px);
+            color: #b8d4e8;
+            line-height: 1.95;
             text-align: justify;
         }
 
-        ul {
-            margin-bottom: 20px;
+        /* ── Séparateur ── */
+        .sep {
+            text-align: center;
+            color: #00b4ff;
+            letter-spacing: 8px;
+            opacity: 0.3;
+            margin: 10px 0 40px;
+            font-size: 12px;
+            font-family: 'Share Tech Mono', monospace;
         }
 
-        blockquote {
-            margin: 20px auto;
-            padding: 15px 20px;
-            background-color: #ffd6e6;
-            border-left: 5px solid #800000;
-            font-style: italic;
-            max-width: 800px;
-        }
-
-        a {
-            color: blue;
-            text-decoration: underline;
-            font-weight: bold;
-        }
-
+        /* ── Retour ── */
         .retour {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 64px;
+        }
+
+        .retour a {
+            display: inline-block;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #00b4ff;
+            text-decoration: none;
+            padding: 14px 38px;
+            border: 1px solid #00b4ff44;
+            background: rgba(0, 180, 255, 0.05);
+            transition: all 0.35s;
+        }
+
+        .retour a:hover {
+            background: rgba(0, 180, 255, 0.18);
+            border-color: #7dd4f8;
+            color: #7dd4f8;
+            box-shadow: 0 0 28px #00b4ff33;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .page { padding: 50px 18px 60px; }
+            .bloc p { text-align: left; }
+            .synthese p { text-align: left; }
+            .fiche-ligne { flex-direction: column; gap: 4px; }
+            .fiche-cle { min-width: unset; }
+            .labo-bord { border-width: 8px; }
         }
     </style>
 </head>
-
 <body>
 
-    <h1>L'Ancrage Scientifique du Mythe : De la Mégafaune à la Biologie</h1>
+    <div class="bg"></div>
+    <div class="grille"></div>
+    <div class="stars-layer" id="stars"></div>
+    <div class="scanline"></div>
+    <div class="labo-bord"></div>
 
-    <p>
-        L'idée que la licorne ne soit qu'une pure invention de l'esprit humain s'effondre face aux découvertes de la paléontologie moderne. Si le cheval blanc ailé appartient au merveilleux, la licorne biologique, elle, a laissé des traces indiscutables dans les sédiments de la Terre.
-    </p>
+    <div class="page">
 
-    <h2>1. L'Elasmotherium sibiricum : Le géant du front</h2>
+        <div class="titre-bloc">
+            <div class="sur-titre">CODEX UNICORNIS — TOME III // DOSSIER SCIENTIFIQUE</div>
+            <h1>
+                L'Ancrage Scientifique du Mythe
+                <em>[ DE LA MÉGAFAUNE À LA BIOLOGIE — RAPPORT D'ANALYSE ]</em>
+            </h1>
+            <div class="couronne">— III —</div>
+        </div>
 
-    <p>
-        L'existence d'un mammifère terrestre arborant une corne frontale unique n'est pas une hypothèse, c'est un fait établi par l'étude de l'Elasmotherium. Ce colosse de la période glaciaire, bien que cousin éloigné des rhinocéros, s'en distinguait par une allure beaucoup plus athlétique et une structure crânienne révolutionnaire.
-    </p>
+        <div class="intro">
+            <span class="lettrine">L</span>'idée que la licorne ne soit qu'une pure invention de l'esprit humain s'effondre face aux découvertes de la paléontologie moderne. Si le cheval blanc ailé appartient au merveilleux, la licorne biologique, elle, a laissé des traces indiscutables dans les sédiments de la Terre.
+        </div>
 
-    <h3>Une ingénierie crânienne unique</h3>
-    <p>
-        Contrairement aux rhinocéros actuels dont les cornes poussent sur le museau (os nasaux), l'Elasmotherium possédait une exostose frontale massive. Les analyses tomographiques révèlent une base osseuse d'une solidité extrême située précisément au milieu du front, capable de supporter une corne de kératine dont les estimations de longueur atteignent 2 mètres. Cette position centrale est l'exacte réplique anatomique de la licorne héraldique.
-    </p>
+        <!-- SECTION 1 -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-num">SPECIMEN_01</div>
+                <div class="section-titre-ligne"></div>
+            </div>
+            <h2>L'Elasmotherium sibiricum</h2>
+            <h3>Le Géant à Corne Frontale</h3>
 
-    <h3>Vitesse et stature</h3>
-    <p>
-        Sa morphologie était celle d'un coureur. Ses membres étaient proportionnellement plus longs et plus fins que ceux des rhinocéros lourds, suggérant une capacité de galop sur de longues distances. Avec un poids avoisinant les 5 tonnes, il représentait une force de la nature dont l'impact visuel sur un observateur humain devait être absolument terrifiant et majestueux.
-    </p>
+            <div class="fiche">
+                <div class="fiche-header">
+                    <div class="fiche-dot"></div>
+                    <div class="fiche-label">FICHE PALÉONTOLOGIQUE — DOSSIER #E-001</div>
+                </div>
+                <div class="fiche-body">
+                    <div class="fiche-ligne">
+                        <span class="fiche-cle">CLASSIFICATION</span>
+                        <span class="fiche-val">Mammifère, Périssodactyle, Rhinocerotidae</span>
+                    </div>
+                    <div class="fiche-ligne">
+                        <span class="fiche-cle">PÉRIODE</span>
+                        <span class="fiche-val">Pléistocène — jusqu'à -29 000 ans (révisé 2016)</span>
+                    </div>
+                    <div class="fiche-ligne">
+                        <span class="fiche-cle">MASSE ESTIMÉE</span>
+                        <span class="fiche-val">4 à 5 tonnes</span>
+                    </div>
+                    <div class="fiche-ligne">
+                        <span class="fiche-cle">CORNE</span>
+                        <span class="fiche-val">Frontale unique — estimée jusqu'à 2 mètres de long</span>
+                    </div>
+                    <div class="fiche-ligne">
+                        <span class="fiche-cle">POSITION CORNE</span>
+                        <span class="fiche-val">Exostose frontale — réplique exacte de la licorne héraldique</span>
+                    </div>
+                    <div class="fiche-ligne">
+                        <span class="fiche-cle">LOCALISATION</span>
+                        <span class="fiche-val">Steppes d'Eurasie — Kazakhstan, Sibérie, Ukraine</span>
+                    </div>
+                </div>
+            </div>
 
-    <h2>2. La chronologie d'une rencontre historique</h2>
+            <div class="bloc">
+                <p>Contrairement aux rhinocéros actuels dont les cornes poussent sur le museau, l'Elasmotherium possédait une exostose frontale massive. Les analyses tomographiques révèlent une base osseuse d'une solidité extrême située précisément au milieu du front, capable de supporter une corne de kératine dont les estimations de longueur atteignent deux mètres. Sa morphologie était celle d'un coureur : membres proportionnellement plus longs et plus fins, suggérant une capacité de galop sur de longues distances.</p>
+            </div>
+        </div>
 
-    <p>
-        Pendant des décennies, le dogme scientifique voulait que l'Elasmotherium se soit éteint il y a environ 350 000 ans, bien avant que l'homme moderne ne puisse en témoigner. Cependant, la science a dû réviser ses copies.
-    </p>
+        <div class="sep">// · · · //</div>
 
-    <h3>La preuve par le Carbone 14</h3>
-    <p>
-        En 2016, une étude internationale a daté des restes fossilisés découverts dans la région de Pavlodar, au Kazakhstan. Les résultats furent une déflagration pour la paléontologie : l'animal aurait survécu jusqu'à -29 000 ans.
-    </p>
+        <!-- SECTION 2 -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-num">SPECIMEN_02</div>
+                <div class="section-titre-ligne"></div>
+            </div>
+            <h2>La Chronologie d'une Rencontre</h2>
+            <h3>Carbone 14 — La Preuve Datée</h3>
 
-    <h3>La naissance d'une légende orale</h3>
-    <p>
-        À cette période, l'Homo sapiens était déjà un artiste et un conteur. Nos ancêtres ont partagé les steppes d'Eurasie avec ces géants monocéros. Il est anthropologiquement certain que la vue d'une telle bête a marqué la mémoire collective. Le processus de mythification — où un animal réel est peu à peu dépouillé de sa rudesse pour devenir un symbole de pureté — est un phénomène classique de la transmission orale sur des dizaines de millénaires.
-    </p>
+            <div class="alerte">
+                <p>En 2016, une étude internationale a daté des restes fossilisés découverts dans la région de Pavlodar, au Kazakhstan. Les résultats furent une déflagration pour la paléontologie : l'Elasmotherium aurait survécu jusqu'à <strong style="color:#00ff99;">-29 000 ans</strong> — au cœur de la présence humaine en Eurasie.</p>
+            </div>
 
-    <h2>3. Les archives de la pierre : L'art préhistorique</h2>
+            <div class="bloc">
+                <p><span class="lettrine">À</span> cette période, l'Homo sapiens était déjà un artiste et un conteur. Nos ancêtres ont partagé les steppes d'Eurasie avec ces géants monocéros. Il est anthropologiquement certain que la vue d'une telle bête a marqué la mémoire collective. Le processus de mythification — où un animal réel est peu à peu dépouillé de sa rudesse pour devenir un symbole de pureté — est un phénomène classique de la transmission orale sur des dizaines de millénaires.</p>
+            </div>
+        </div>
 
-    <p>
-        L'art rupestre offre un second pilier de preuve. Dans plusieurs grottes européennes, notamment à Rouffignac (la "Grotte des cent mammouths"), des silhouettes de rhinocéridés sont représentées avec une caractéristique troublante : une corne unique, démesurément longue, s'élevant verticalement depuis le front.
-    </p>
+        <div class="sep">// · · · //</div>
 
-    <p>
-        Certains préhistoriens suggèrent que ces artistes n'essayaient pas de dessiner des rhinocéros laineux classiques (qui ont deux cornes nasales), mais bien des spécimens d'Elasmotherium ou des formes de vie apparentées. Ces dessins constituent les premiers portraits de la licorne avant que l'art médiéval ne l'affine.
-    </p>
+        <!-- SECTION 3 -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-num">SPECIMEN_03</div>
+                <div class="section-titre-ligne"></div>
+            </div>
+            <h2>Les Archives de la Pierre</h2>
+            <h3>Art Rupestre — Données Visuelles</h3>
 
-    <h2>4. La convergence biologique du "Monocéros"</h2>
+            <div class="bloc">
+                <p><span class="lettrine">D</span>ans plusieurs grottes européennes, notamment à Rouffignac — la « Grotte des cent mammouths » — des silhouettes de rhinocéridés sont représentées avec une caractéristique troublante : une corne unique, démesurément longue, s'élevant verticalement depuis le front. Certains préhistoriens suggèrent que ces artistes ne dessinaient pas des rhinocéros laineux classiques, mais bien des spécimens d'Elasmotherium. Ces dessins constituent les premiers portraits de la licorne, avant que l'art médiéval ne l'affine.</p>
+            </div>
+        </div>
 
-    <h3>Le cas du Narval (Monodon monoceros)</h3>
-    <p>
-        Ce mammifère marin possède une canine qui traverse la lèvre supérieure pour former une lance torsadée pouvant atteindre 3 mètres. C'est la preuve biologique que le vivant peut produire un appendice droit, long et frontal. Pendant des siècles, la vente de ces "cornes" par les navigateurs scandinaves a servi de preuve matérielle à l'existence de la licorne terrestre, fusionnant deux réalités biologiques en un seul mythe.
-    </p>
+        <div class="sep">// · · · //</div>
 
-    <h3>L'Oryx et l'illusion d'optique</h3>
-    <p>
-        L'Oryx d'Arabie, vu de profil, présente une superposition parfaite de ses deux cornes droites, créant l'illusion d'une corne unique. Les récits de voyageurs antiques, souvent basés sur des observations furtives à distance, ont transformé ces antilopes en "chevaux à corne unique".
-    </p>
+        <!-- SECTION 4 -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-num">SPECIMEN_04</div>
+                <div class="section-titre-ligne"></div>
+            </div>
+            <h2>La Convergence Biologique</h2>
+            <h3>Deux Témoins Vivants du Monocéros</h3>
 
-    <h2>Synthèse</h2>
-    <p>
-        En somme, la science nous enseigne que la licorne n'est pas née de "rien". Elle est le résultat d'un phénomène de sédimentation culturelle : une base paléontologique réelle (l'Elasmotherium), confirmée par des rencontres avec l'homme préhistorique, nourrie par des preuves biologiques tangibles (le narval) et des illusions naturelles (l'oryx). La licorne existe : elle est le souvenir persistant d'un géant disparu, sculpté par les siècles de culture humaine.
-    </p>
+            <div class="fiche">
+                <div class="fiche-header">
+                    <div class="fiche-dot"></div>
+                    <div class="fiche-label">FICHE BIOLOGIQUE — DOSSIER #N-002</div>
+                </div>
+                <div class="fiche-body">
+                    <div class="fiche-ligne">
+                        <span class="fiche-cle">ESPÈCE</span>
+                        <span class="fiche-val">Monodon monoceros — Le Narval</span>
+                    </div>
+                    <div class="fiche-ligne">
+                        <span class="fiche-cle">APPENDICE</span>
+                        <span class="fiche-val">Canine torsadée — jusqu'à 3 mètres</span>
+                    </div>
+                    <div class="fiche-ligne">
+                        <span class="fiche-cle">RÔLE HISTORIQUE</span>
+                        <span class="fiche-val">Dents vendues comme « alicornes » par les navigateurs scandinaves</span>
+                    </div>
+                    <div class="fiche-ligne">
+                        <span class="fiche-cle">CONCLUSION</span>
+                        <span class="fiche-val">Preuve que le vivant peut produire un appendice droit, long et frontal</span>
+                    </div>
+                </div>
+            </div>
 
-    <div class="retour">
-        <a href="index.html">← Retour à l’accueil</a>
+            <div class="fiche" style="margin-top: 20px;">
+                <div class="fiche-header">
+                    <div class="fiche-dot" style="background:#00ff99; box-shadow: 0 0 6px #00ff99;"></div>
+                    <div class="fiche-label">FICHE BIOLOGIQUE — DOSSIER #O-003</div>
+                </div>
+                <div class="fiche-body">
+                    <div class="fiche-ligne">
+                        <span class="fiche-cle">ESPÈCE</span>
+                        <span class="fiche-val">Oryx leucoryx — L'Oryx d'Arabie</span>
+                    </div>
+                    <div class="fiche-ligne">
+                        <span class="fiche-cle">PHÉNOMÈNE</span>
+                        <span class="fiche-val">Superposition parfaite des deux cornes droites vues de profil</span>
+                    </div>
+                    <div class="fiche-ligne">
+                        <span class="fiche-cle">EFFET</span>
+                        <span class="fiche-val">Illusion d'une corne unique pour les observateurs à distance</span>
+                    </div>
+                    <div class="fiche-ligne">
+                        <span class="fiche-cle">CONCLUSION</span>
+                        <span class="fiche-val">Transformation d'une antilope réelle en « cheval à corne unique » dans les récits antiques</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="citation">
+            <p>La licorne est le souvenir persistant d'un géant disparu,<br>sculpté par les siècles de culture humaine.</p>
+        </div>
+
+        <div class="synthese">
+            <p><span class="lettrine">E</span>n somme, la science nous enseigne que la licorne n'est pas née de rien. Elle est le résultat d'un phénomène de sédimentation culturelle : une base paléontologique réelle — l'Elasmotherium — confirmée par des rencontres avec l'homme préhistorique, nourrie par des preuves biologiques tangibles comme le narval, et renforcée par des illusions naturelles comme l'oryx. La licorne existe : elle est la mémoire fossile d'un monde disparu, gravée dans l'imaginaire de l'humanité.</p>
+        </div>
+
+        <div class="retour">
+            <a href="index.html">← Retour à l'accueil</a>
+        </div>
+
     </div>
+
+    <script>
+        const starsEl = document.getElementById('stars');
+        for (let i = 0; i < 80; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            const size = Math.random() * 2 + 0.3;
+            s.style.cssText = [
+                `width:${size}px`,
+                `height:${size}px`,
+                `top:${Math.random() * 100}%`,
+                `left:${Math.random() * 100}%`,
+                `--dur:${(2 + Math.random() * 4).toFixed(1)}s`,
+                `--delay:${(Math.random() * 5).toFixed(1)}s`
+            ].join(';');
+            starsEl.appendChild(s);
+        }
+    </script>
 
 </body>
 </html>
