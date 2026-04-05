@@ -19,7 +19,6 @@
             overflow-x: hidden;
         }
 
-        /* ── Fond multicouche ── */
         .bg {
             position: fixed;
             inset: 0;
@@ -31,7 +30,6 @@
             z-index: 0;
         }
 
-        /* ── Nébuleuse animée ── */
         .nebuleuse {
             position: fixed;
             inset: 0;
@@ -47,11 +45,10 @@
         }
 
         @keyframes neb-drift {
-            from { transform: translateY(0) scale(1);   opacity: var(--na1, 0.08); }
+            from { transform: translateY(0) scale(1);        opacity: var(--na1, 0.08); }
             to   { transform: translateY(-30px) scale(1.08); opacity: var(--na2, 0.18); }
         }
 
-        /* ── Étoiles ── */
         .stars-layer {
             position: fixed;
             inset: 0;
@@ -71,7 +68,6 @@
             to   { opacity: 0.9;  transform: scale(1.4); }
         }
 
-        /* ── Météores ── */
         .meteore {
             position: fixed;
             width: 120px;
@@ -90,7 +86,6 @@
             100% { transform: translateX(110vw) translateY(60vh) rotate(-25deg); opacity: 0; }
         }
 
-        /* ── Bordure majestueuse ── */
         .bord-outer {
             position: fixed;
             inset: 0;
@@ -119,7 +114,6 @@
             z-index: 21;
         }
 
-        /* Coins dorés aux 4 angles */
         .coin-tl, .coin-tr, .coin-bl, .coin-br {
             position: absolute;
             width: 40px;
@@ -133,7 +127,6 @@
         .coin-bl { bottom: 12px; left: 12px;   border-width: 0 0 2px 2px; }
         .coin-br { bottom: 12px; right: 12px;  border-width: 0 2px 2px 0; }
 
-        /* ── Contenu principal ── */
         .page {
             position: relative;
             z-index: 5;
@@ -141,10 +134,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 0 0 60px;
+            padding: 0 0 40px;
         }
 
-        /* ── Titre ── */
         .titre-wrapper {
             text-align: center;
             padding: 56px 24px 10px;
@@ -199,7 +191,6 @@
             opacity: 0.8;
         }
 
-        /* ── Layout central ── */
         .layout {
             display: flex;
             justify-content: center;
@@ -211,7 +202,6 @@
             gap: 0;
         }
 
-        /* ── Colonnes images ── */
         .colonne {
             width: 110px;
             flex-shrink: 0;
@@ -227,7 +217,6 @@
             filter: drop-shadow(0 0 8px #c89a2a44);
         }
 
-        /* ── Zone centrale ── */
         .centre {
             flex: 1;
             max-width: 800px;
@@ -239,7 +228,6 @@
             padding: 0 16px;
         }
 
-        /* ── Colonnes de liens ── */
         .liens-col {
             display: flex;
             flex-direction: column;
@@ -252,7 +240,6 @@
         .liens-col.gauche { align-items: flex-end; }
         .liens-col.droite { align-items: flex-start; }
 
-        /* ── Lien carte ── */
         .lien {
             display: block;
             position: relative;
@@ -271,7 +258,6 @@
             overflow: hidden;
         }
 
-        /* Coins dorés sur chaque lien */
         .lien::before, .lien::after {
             content: '';
             position: absolute;
@@ -282,8 +268,8 @@
             transition: all 0.4s;
         }
 
-        .lien::before { top: 4px; left: 4px;  border-width: 1px 0 0 1px; }
-        .lien::after  { bottom: 4px; right: 4px; border-width: 0 1px 1px 0; }
+        .lien::before { top: 4px;    left: 4px;   border-width: 1px 0 0 1px; }
+        .lien::after  { bottom: 4px; right: 4px;  border-width: 0 1px 1px 0; }
 
         .lien:hover {
             background: rgba(180, 120, 20, 0.18);
@@ -294,17 +280,9 @@
             box-shadow: 0 8px 24px #c89a2a22;
         }
 
-        .lien:hover::before {
-            top: 2px; left: 2px;
-            width: 14px; height: 14px;
-        }
+        .lien:hover::before { top: 2px;    left: 2px;   width: 14px; height: 14px; }
+        .lien:hover::after  { bottom: 2px; right: 2px;  width: 14px; height: 14px; }
 
-        .lien:hover::after {
-            bottom: 2px; right: 2px;
-            width: 14px; height: 14px;
-        }
-
-        /* ── Photo centrale ── */
         .photo-centre {
             display: flex;
             flex-direction: column;
@@ -327,7 +305,7 @@
             line-height: 1;
         }
 
-        .photo-frame-outer::before { top: -8px; left: 50%; transform: translateX(-50%); }
+        .photo-frame-outer::before { top: -8px;    left: 50%; transform: translateX(-50%); }
         .photo-frame-outer::after  { bottom: -8px; left: 50%; transform: translateX(-50%); }
 
         .photo-frame {
@@ -351,12 +329,9 @@
             transition: transform 0.6s ease;
         }
 
-        .photo-frame:hover img {
-            transform: scale(1.04);
-        }
+        .photo-frame:hover img { transform: scale(1.04); }
 
-        /* Coins photo */
-        .photo-frame .coin-photo {
+        .coin-photo {
             position: absolute;
             width: 16px;
             height: 16px;
@@ -365,10 +340,10 @@
             z-index: 3;
         }
 
-        .photo-frame .cp-tl { top: 5px; left: 5px;   border-width: 2px 0 0 2px; }
-        .photo-frame .cp-tr { top: 5px; right: 5px;  border-width: 2px 2px 0 0; }
-        .photo-frame .cp-bl { bottom: 5px; left: 5px;  border-width: 0 0 2px 2px; }
-        .photo-frame .cp-br { bottom: 5px; right: 5px; border-width: 0 2px 2px 0; }
+        .cp-tl { top: 5px;    left: 5px;   border-width: 2px 0 0 2px; }
+        .cp-tr { top: 5px;    right: 5px;  border-width: 2px 2px 0 0; }
+        .cp-bl { bottom: 5px; left: 5px;   border-width: 0 0 2px 2px; }
+        .cp-br { bottom: 5px; right: 5px;  border-width: 0 2px 2px 0; }
 
         .sep-photo {
             color: #c89a2a;
@@ -382,16 +357,40 @@
             max-width: 250px;
         }
 
-        /* ── Bas de page : devise ── */
+        /* ── Pied de page ── */
+        .pied-de-page {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 30px 30px 24px;
+        }
+
         .devise {
-            margin-top: 50px;
-            text-align: center;
             font-family: 'Cinzel Decorative', serif;
             font-size: clamp(8px, 1vw, 11px);
             letter-spacing: 5px;
             color: #c89a2a;
             opacity: 0.45;
+            flex: 1;
+            text-align: center;
         }
+
+        .mentions {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 9px;
+            letter-spacing: 2px;
+            color: #c89a2a;
+            opacity: 0.3;
+            text-decoration: none;
+            transition: opacity 0.4s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .mentions:hover { opacity: 0.85; }
 
         /* ── Tablettes ── */
         @media (max-width: 900px) {
@@ -403,10 +402,10 @@
 
             .bord-outer::before { inset: 4px; }
             .bord-outer::after  { inset: 7px; }
-            .coin-tl { top: 8px;    left: 8px;   }
-            .coin-tr { top: 8px;    right: 8px;  }
-            .coin-bl { bottom: 8px; left: 8px;   }
-            .coin-br { bottom: 8px; right: 8px;  }
+            .coin-tl { top: 8px;    left: 8px;  }
+            .coin-tr { top: 8px;    right: 8px; }
+            .coin-bl { bottom: 8px; left: 8px;  }
+            .coin-br { bottom: 8px; right: 8px; }
 
             .layout {
                 flex-direction: column;
@@ -445,15 +444,21 @@
 
             .sur-titre { font-size: 8px; letter-spacing: 3px; }
 
-            .photo-frame {
-                width: clamp(140px, 50vw, 200px);
+            .photo-frame { width: clamp(140px, 50vw, 200px); }
+
+            .pied-de-page {
+                flex-direction: column;
+                align-items: center;
+                gap: 16px;
+                padding: 24px 16px 20px;
             }
+
+            .mentions { font-size: 8px; letter-spacing: 1px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Fond et effets -->
     <div class="bg"></div>
 
     <div class="nebuleuse">
@@ -473,7 +478,6 @@
         <div class="coin-br"></div>
     </div>
 
-    <!-- Contenu -->
     <div class="page">
 
         <div class="titre-wrapper">
@@ -526,12 +530,15 @@
 
         </div>
 
-        <div class="devise">Veritas in Cornu — La vérité est dans la corne</div>
+    </div>
 
+    <!-- Pied de page hors de .page pour être tout en bas -->
+    <div class="pied-de-page">
+        <a href="page6.html" class="mentions">Mentions légales</a>
+        <div class="devise">Veritas in Cornu — La vérité est dans la corne</div>
     </div>
 
     <script>
-        /* ── Étoiles ── */
         const starsEl = document.getElementById('stars');
         for (let i = 0; i < 100; i++) {
             const s = document.createElement('div');
@@ -548,7 +555,6 @@
             starsEl.appendChild(s);
         }
 
-        /* ── Météores ── */
         const metEl = document.getElementById('meteores');
         for (let i = 0; i < 5; i++) {
             const m = document.createElement('div');
@@ -562,11 +568,10 @@
             metEl.appendChild(m);
         }
 
-        /* ── Mobile : réorganisation DOM ── */
         function reorganise() {
-            const layout = document.getElementById('layout');
-            const colG   = document.getElementById('col-gauche');
-            const colD   = document.getElementById('col-droite');
+            const layout  = document.getElementById('layout');
+            const colG    = document.getElementById('col-gauche');
+            const colD    = document.getElementById('col-droite');
             let mobileTop = document.querySelector('.colonnes-mobile');
 
             if (window.innerWidth <= 600) {
